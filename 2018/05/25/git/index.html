@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>git 常用命令 | zzy,write something</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="git常用操作公钥1ssh-keygen -t rsa 一般公钥存在~/.ssh/id_rsa.pub，并且需要你上传到github，gitlab等。 分支相关 git branch：查看本地有那些分支，结果branch前面带*号的是当前分支。 git branch -a：查看一共有哪些分支：,会列出所有分支，你可以根据分支名拉取分支代码 git checkout -b $branch_name：">
+<meta name="keywords" content="git">
+<meta property="og:type" content="article">
+<meta property="og:title" content="git 常用命令">
+<meta property="og:url" content="http://107zy.cn/2018/05/25/git/index.html">
+<meta property="og:site_name" content="zzy,write something">
+<meta property="og:description" content="git常用操作公钥1ssh-keygen -t rsa 一般公钥存在~/.ssh/id_rsa.pub，并且需要你上传到github，gitlab等。 分支相关 git branch：查看本地有那些分支，结果branch前面带*号的是当前分支。 git branch -a：查看一共有哪些分支：,会列出所有分支，你可以根据分支名拉取分支代码 git checkout -b $branch_name：">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-05-25T14:16:31.736Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="git 常用命令">
+<meta name="twitter:description" content="git常用操作公钥1ssh-keygen -t rsa 一般公钥存在~/.ssh/id_rsa.pub，并且需要你上传到github，gitlab等。 分支相关 git branch：查看本地有那些分支，结果branch前面带*号的是当前分支。 git branch -a：查看一共有哪些分支：,会列出所有分支，你可以根据分支名拉取分支代码 git checkout -b $branch_name：">
+  
+    <link rel="alternate" href="/atom.xml" title="zzy,write something" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">zzy,write something</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://107zy.cn"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-git" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/05/25/git/" class="article-date">
+  <time datetime="2018-05-25T13:14:37.000Z" itemprop="datePublished">2018-05-25</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      git 常用命令
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="git常用操作"><a href="#git常用操作" class="headerlink" title="git常用操作"></a>git常用操作</h2><h3 id="公钥"><a href="#公钥" class="headerlink" title="公钥"></a>公钥</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa</span><br></pre></td></tr></table></figure>
+<p>一般公钥存在<code>~/.ssh/id_rsa.pub</code>，并且需要你上传到github，gitlab等。</p>
+<h3 id="分支相关"><a href="#分支相关" class="headerlink" title="分支相关"></a>分支相关</h3><ul>
+<li><code>git branch</code>：查看本地有那些分支，结果branch前面带*号的是当前分支。</li>
+<li><code>git branch -a</code>：查看一共有哪些分支：,会列出所有分支，你可以根据分支名拉取分支代码</li>
+<li><code>git checkout -b $branch_name</code>：如果分支不存在，新建一个名字是<code>$branch_name</code>的分支，如果分支存在，拉取分支代码，并切换到分支：</li>
+<li>上面的代码也相当于以下两行命令：<br>  <code>git branch $branch_name</code><br>  <code>git checkout $branch_name</code>   </li>
+<li>切换分支：<code>git checkout $branch_name</code></li>
+<li>改完了代码，提交：<code>git commit -m &#39;$text&#39;</code>  </li>
+<li>提交分支：<code>git push origin [name]</code>,如果不加<code>name</code>，会提交所有分支。</li>
+<li>删除分支：<code>git branch -d [name]</code></li>
+<li>合并分支：<code>git merge [name]</code>，把分支合并到当前分支</li>
+<li>拉取分支的更新：<code>git checkout master;git pull origin</code>,拉取master的更新</li>
+<li>查看已经合并了的分支：<code>git branch --merged</code>,这个列表里面不带<code>*</code>的都可以删掉了，因为已经merged</li>
+<li>查看未合并的分支：<code>git branch --no-merged</code>,这个不能删除，只能用<code>git branch -D</code>强制删除</li>
+</ul>
+<p>;D:\Microsoft VS Code\bin;D:\LLVM\bin;D:\GitBash</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://107zy.cn/2018/05/25/git/" data-id="cjhm2ho0o0001cpi5tle5ftdz" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/git/">git</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/05/25/More_Effective_C++/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          More_Effective_C++
+        
+      </div>
+    </a>
+  
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C-11/">C++11</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/C-11/" style="font-size: 20px;">C++11</a> <a href="/tags/git/" style="font-size: 10px;">git</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/05/25/move_forward_notes/">std::foward 和 std;:move 注意事项</a>
+          </li>
+        
+          <li>
+            <a href="/2018/05/25/move/">std::move</a>
+          </li>
+        
+          <li>
+            <a href="/2018/05/25/lvalue_rvalue/">左值、右值和引用</a>
+          </li>
+        
+          <li>
+            <a href="/2018/05/25/More_Effective_C++/">More_Effective_C++</a>
+          </li>
+        
+          <li>
+            <a href="/2018/05/25/git/">git 常用命令</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 zzy<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
