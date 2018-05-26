@@ -108,18 +108,18 @@
 
 
 
-  <meta name="description" content="左值、右值和引用[TOC] 左值和右值C++( 包括 C) 中所有的表达式和变量要么是左值，要么是右值。可以用以下方式理解左值和右值： 左值 左值的定义就是非临时对象，那些可以在多条语句中使用的对象。所有定义的变量都满足这个定义。 一个有用的，有启发意义的判断一个表达式是左值的方法是取它的地址。如果可以取地址，它基本上就是一个左值。如果不行，通常来说是一个右值。（Effective Modern">
+  <meta name="description" content="左值、右值和引用[TOC] C++( 包括 C) 中所有的表达式和变量要么是左值，要么是右值。可以用以下方式理解左值和右值： 左值 左值的定义就是非临时对象，那些可以在多条语句中使用的对象。所有定义的变量都满足这个定义。 一个有用的，有启发意义的判断一个表达式是左值的方法是取它的地址。如果可以取地址，它基本上就是一个左值。如果不行，通常来说是一个右值。（Effective Modern C++）右">
 <meta name="keywords" content="C++11">
 <meta property="og:type" content="article">
 <meta property="og:title" content="左值、右值和引用">
 <meta property="og:url" content="http://107zy.cn/2018/05/25/lvalue_rvalue/index.html">
 <meta property="og:site_name" content="zzy的随笔">
-<meta property="og:description" content="左值、右值和引用[TOC] 左值和右值C++( 包括 C) 中所有的表达式和变量要么是左值，要么是右值。可以用以下方式理解左值和右值： 左值 左值的定义就是非临时对象，那些可以在多条语句中使用的对象。所有定义的变量都满足这个定义。 一个有用的，有启发意义的判断一个表达式是左值的方法是取它的地址。如果可以取地址，它基本上就是一个左值。如果不行，通常来说是一个右值。（Effective Modern">
+<meta property="og:description" content="左值、右值和引用[TOC] C++( 包括 C) 中所有的表达式和变量要么是左值，要么是右值。可以用以下方式理解左值和右值： 左值 左值的定义就是非临时对象，那些可以在多条语句中使用的对象。所有定义的变量都满足这个定义。 一个有用的，有启发意义的判断一个表达式是左值的方法是取它的地址。如果可以取地址，它基本上就是一个左值。如果不行，通常来说是一个右值。（Effective Modern C++）右">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-05-25T14:17:33.067Z">
+<meta property="og:updated_time" content="2018-05-26T12:34:12.422Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="左值、右值和引用">
-<meta name="twitter:description" content="左值、右值和引用[TOC] 左值和右值C++( 包括 C) 中所有的表达式和变量要么是左值，要么是右值。可以用以下方式理解左值和右值： 左值 左值的定义就是非临时对象，那些可以在多条语句中使用的对象。所有定义的变量都满足这个定义。 一个有用的，有启发意义的判断一个表达式是左值的方法是取它的地址。如果可以取地址，它基本上就是一个左值。如果不行，通常来说是一个右值。（Effective Modern">
+<meta name="twitter:description" content="左值、右值和引用[TOC] C++( 包括 C) 中所有的表达式和变量要么是左值，要么是右值。可以用以下方式理解左值和右值： 左值 左值的定义就是非临时对象，那些可以在多条语句中使用的对象。所有定义的变量都满足这个定义。 一个有用的，有启发意义的判断一个表达式是左值的方法是取它的地址。如果可以取地址，它基本上就是一个左值。如果不行，通常来说是一个右值。（Effective Modern C++）右">
 
 
 
@@ -323,12 +323,24 @@
                 
               
 
-              <time title="Created: 2018-05-25 21:17:37 / Modified: 22:17:33" itemprop="dateCreated datePublished" datetime="2018-05-25T21:17:37+08:00">2018-05-25</time>
+              <time title="Created: 2018-05-25 21:17:37" itemprop="dateCreated datePublished" datetime="2018-05-25T21:17:37+08:00">2018-05-25</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2018-05-26 20:34:12" itemprop="dateModified" datetime="2018-05-26T20:34:12+08:00">2018-05-26</time>
               
             
           </span>
@@ -372,16 +384,17 @@
 
       
         <h2 id="左值、右值和引用"><a href="#左值、右值和引用" class="headerlink" title="左值、右值和引用"></a>左值、右值和引用</h2><p>[TOC]</p>
-<h3 id="左值和右值"><a href="#左值和右值" class="headerlink" title="左值和右值"></a>左值和右值</h3><p>C++( 包括 C) 中所有的表达式和变量要么是左值，要么是右值。可以用以下方式理解左值和右值：</p>
+<p>C++( 包括 C) 中所有的表达式和变量要么是左值，要么是右值。可以用以下方式理解左值和右值：</p>
 <h4 id="左值"><a href="#左值" class="headerlink" title="左值"></a>左值</h4><ul>
 <li>左值的定义就是非临时对象，那些可以在多条语句中使用的对象。所有定义的变量都满足这个定义。</li>
 <li>一个有用的，有启发意义的判断一个表达式是左值的方法是取它的地址。如果可以取地址，它基本上就是一个左值。如果不行，通常来说是一个右值。（Effective Modern C++）<h4 id="右值"><a href="#右值" class="headerlink" title="右值"></a>右值</h4></li>
 <li>一般没有名字</li>
 <li>计算的中间过程，价值只是为了<code>复制</code>到一个有名字的对象。</li>
 <li>右值是指临时的对象，它们只在当前的语句中有效。</li>
-<li>一般函数返回值是右值。</li>
-</ul>
+<li>一般函数返回值是右值。<a id="more"></a>
 <h4 id="一些举例"><a href="#一些举例" class="headerlink" title="一些举例"></a>一些举例</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">A a1 = GetA();                                  <span class="comment">// a1是左值，GetA()返回的结果是右值</span></span><br><span class="line"><span class="keyword">int</span> x, y;</span><br><span class="line">x+y;                                            <span class="comment">// x+y的结果是右值(甚至没有办法叫出名字)</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
 <h3 id="左值引用和右值引用"><a href="#左值引用和右值引用" class="headerlink" title="左值引用和右值引用"></a>左值引用和右值引用</h3><h4 id="左值引用"><a href="#左值引用" class="headerlink" title="左值引用"></a>左值引用</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span>&amp; a = <span class="number">5</span>;              <span class="comment">// a是一个左值引用</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">GetX</span><span class="params">(<span class="keyword">int</span> &amp; x)</span></span>;      <span class="comment">// x算是一个左值引用，虽然它是一个形参   L1</span></span><br></pre></td></tr></table></figure>
 <p>对于上面的<code>GetX</code>函数，显然<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> x = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">int</span> y = Get(x);      <span class="comment">// ok</span></span><br><span class="line"><span class="keyword">int</span> z = Get(Get(x))  <span class="comment">// error，no matching，里面的函数返回的是int &amp;&amp;</span></span><br></pre></td></tr></table></figure></p>
 <h4 id="右值引用"><a href="#右值引用" class="headerlink" title="右值引用"></a>右值引用</h4><p>左值的声明符号为”&amp;”， 为了和左值区分，右值的声明符号为”&amp;&amp;”。<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> &amp;&amp; a = <span class="number">5</span>;        <span class="comment">// 右值引用，可以对一个右值引用取地址   L2</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">GetX</span><span class="params">(<span class="keyword">int</span> &amp;&amp; x)</span></span>;</span><br></pre></td></tr></table></figure></p>
@@ -590,7 +603,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#左值、右值和引用"><span class="nav-number">1.</span> <span class="nav-text">左值、右值和引用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#左值和右值"><span class="nav-number">1.1.</span> <span class="nav-text">左值和右值</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#左值"><span class="nav-number">1.1.1.</span> <span class="nav-text">左值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#右值"><span class="nav-number">1.1.2.</span> <span class="nav-text">右值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#一些举例"><span class="nav-number">1.1.3.</span> <span class="nav-text">一些举例</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#左值引用和右值引用"><span class="nav-number">1.2.</span> <span class="nav-text">左值引用和右值引用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#左值引用"><span class="nav-number">1.2.1.</span> <span class="nav-text">左值引用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#右值引用"><span class="nav-number">1.2.2.</span> <span class="nav-text">右值引用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#左值引用和右值引用-1"><span class="nav-number">1.2.3.</span> <span class="nav-text">左值引用和右值引用</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#参数都是左值"><span class="nav-number">1.2.3.1.</span> <span class="nav-text">参数都是左值</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#一个抄来的例子"><span class="nav-number">1.2.4.</span> <span class="nav-text">一个抄来的例子</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#通用引用"><span class="nav-number">1.2.5.</span> <span class="nav-text">通用引用</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#引用折叠"><span class="nav-number">1.3.</span> <span class="nav-text">引用折叠</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#左值、右值和引用"><span class="nav-number">1.</span> <span class="nav-text">左值、右值和引用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#左值"><span class="nav-number">1.0.1.</span> <span class="nav-text">左值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#右值"><span class="nav-number">1.0.2.</span> <span class="nav-text">右值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#一些举例"><span class="nav-number">1.0.3.</span> <span class="nav-text">一些举例</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#左值引用和右值引用"><span class="nav-number">1.1.</span> <span class="nav-text">左值引用和右值引用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#左值引用"><span class="nav-number">1.1.1.</span> <span class="nav-text">左值引用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#右值引用"><span class="nav-number">1.1.2.</span> <span class="nav-text">右值引用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#左值引用和右值引用-1"><span class="nav-number">1.1.3.</span> <span class="nav-text">左值引用和右值引用</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#参数都是左值"><span class="nav-number">1.1.3.1.</span> <span class="nav-text">参数都是左值</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#一个抄来的例子"><span class="nav-number">1.1.4.</span> <span class="nav-text">一个抄来的例子</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#通用引用"><span class="nav-number">1.1.5.</span> <span class="nav-text">通用引用</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#引用折叠"><span class="nav-number">1.2.</span> <span class="nav-text">引用折叠</span></a></li></ol></li></ol></div>
             
 
           </div>

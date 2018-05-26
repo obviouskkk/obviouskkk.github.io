@@ -116,7 +116,7 @@
 <meta property="og:site_name" content="zzy的随笔">
 <meta property="og:description" content="More_Effective_C++[TOC] 基础指针和引用 指针可以指向空值，可以被重新赋值；引用不可以 存在不指向任何对象的可能，或者需要在不同的时刻指向不同的内容，这个时候用指针。 重载操作符时或者不改变指向的时候，应该使用引用。尽量使用C++的类型转换安全，编译器会帮你检查。不要对数组使用多态 如果函数参数为父类型A，实际传入参数为子类型B，那么编译器不会报错或者警告 但是因为数组每次向">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-05-25T15:23:21.490Z">
+<meta property="og:updated_time" content="2018-05-26T12:34:54.766Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="More_Effective_C++">
 <meta name="twitter:description" content="More_Effective_C++[TOC] 基础指针和引用 指针可以指向空值，可以被重新赋值；引用不可以 存在不指向任何对象的可能，或者需要在不同的时刻指向不同的内容，这个时候用指针。 重载操作符时或者不改变指向的时候，应该使用引用。尽量使用C++的类型转换安全，编译器会帮你检查。不要对数组使用多态 如果函数参数为父类型A，实际传入参数为子类型B，那么编译器不会报错或者警告 但是因为数组每次向">
@@ -323,12 +323,24 @@
                 
               
 
-              <time title="Created: 2018-05-25 21:14:37 / Modified: 23:23:21" itemprop="dateCreated datePublished" datetime="2018-05-25T21:14:37+08:00">2018-05-25</time>
+              <time title="Created: 2018-05-25 21:14:37" itemprop="dateCreated datePublished" datetime="2018-05-25T21:14:37+08:00">2018-05-25</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2018-05-26 20:34:54" itemprop="dateModified" datetime="2018-05-26T20:34:54+08:00">2018-05-26</time>
               
             
           </span>
@@ -377,9 +389,9 @@
 <li>存在不指向任何对象的可能，或者需要在不同的时刻指向不同的内容，这个时候用指针。</li>
 <li>重载操作符时或者不改变指向的时候，应该使用引用。<h4 id="尽量使用C-的类型转换"><a href="#尽量使用C-的类型转换" class="headerlink" title="尽量使用C++的类型转换"></a>尽量使用C++的类型转换</h4>安全，编译器会帮你检查。<h4 id="不要对数组使用多态"><a href="#不要对数组使用多态" class="headerlink" title="不要对数组使用多态"></a>不要对数组使用多态</h4></li>
 <li>如果函数参数为父类型A，实际传入参数为子类型B，那么编译器不会报错或者警告</li>
-<li>但是因为数组每次向后，都跳过一个sizeof(A)，但数组元素实际类型为B，造成越界。</li>
+<li>但是因为数组每次向后，都跳过一个sizeof(A)，但数组元素实际类型为B，造成越界。<a id="more"></a>
+一个具体的例子：<a href="https://github.com/obviouskkk/codes_cplusplus/blob/master/More_effective_cpp/item_3_ArrayPolymorphism.cpp" target="_blank" rel="noopener">数组和多态</a></li>
 </ul>
-<p>一个具体的例子：<a href="https://github.com/obviouskkk/codes_cplusplus/blob/master/More_effective_cpp/item_3_ArrayPolymorphism.cpp" target="_blank" rel="noopener">数组和多态</a></p>
 <h4 id="避免无用的缺省构造函数"><a href="#避免无用的缺省构造函数" class="headerlink" title="避免无用的缺省构造函数"></a>避免无用的缺省构造函数</h4><ul>
 <li>没有默认构造函数的话，<code>B arrb[10]</code>或者<code>B * pb = new B[10]</code> 不能调用构造函数。解决方法：<code>B b[] = {B(1), b(2)...}</code>或者利用指针数组来代替对象数组，即<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">typedef B* pb;</span><br><span class="line">pb arrayPb[10];      //不调用构造函数</span><br><span class="line">// 或者 pb * arraypb = new pb[10]; // 也不调用构造函数</span><br><span class="line">for (int i = 0; i &lt; 10; ++i)</span><br><span class="line">&#123;</span><br><span class="line">	arraypb[i] = new B(i); // 调用构造函数</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>

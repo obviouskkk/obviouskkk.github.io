@@ -108,18 +108,18 @@
 
 
 
-  <meta name="description" content="std::move[TOC] 新特性的目的右值引用 (Rvalue Referene) 是 C++11中引入的新特性 , 它实现了转移语义 (Move Sementics) 和精确传递 (Perfect Forwarding)。它的主要目的有两个方面：  消除两个对象交互时不必要的对象拷贝，节省运算存储资源，提高效率。 能够更简洁明确地定义泛型函数。  std::move首先，std::move(">
+  <meta name="description" content="std::move[TOC] 新特性的目的右值引用 (Rvalue Referene) 是 C++11中引入的新特性 , 它实现了转移语义 (Move Sementics) 和精确传递 (Perfect Forwarding)。它的主要目的有两个方面：  消除两个对象交互时不必要的对象拷贝，节省运算存储资源，提高效率。 能够更简洁明确地定义泛型函数。">
 <meta name="keywords" content="C++11">
 <meta property="og:type" content="article">
 <meta property="og:title" content="std::move">
 <meta property="og:url" content="http://107zy.cn/2018/05/25/move/index.html">
 <meta property="og:site_name" content="zzy的随笔">
-<meta property="og:description" content="std::move[TOC] 新特性的目的右值引用 (Rvalue Referene) 是 C++11中引入的新特性 , 它实现了转移语义 (Move Sementics) 和精确传递 (Perfect Forwarding)。它的主要目的有两个方面：  消除两个对象交互时不必要的对象拷贝，节省运算存储资源，提高效率。 能够更简洁明确地定义泛型函数。  std::move首先，std::move(">
+<meta property="og:description" content="std::move[TOC] 新特性的目的右值引用 (Rvalue Referene) 是 C++11中引入的新特性 , 它实现了转移语义 (Move Sementics) 和精确传递 (Perfect Forwarding)。它的主要目的有两个方面：  消除两个对象交互时不必要的对象拷贝，节省运算存储资源，提高效率。 能够更简洁明确地定义泛型函数。">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-05-25T14:18:26.574Z">
+<meta property="og:updated_time" content="2018-05-26T12:35:03.826Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="std::move">
-<meta name="twitter:description" content="std::move[TOC] 新特性的目的右值引用 (Rvalue Referene) 是 C++11中引入的新特性 , 它实现了转移语义 (Move Sementics) 和精确传递 (Perfect Forwarding)。它的主要目的有两个方面：  消除两个对象交互时不必要的对象拷贝，节省运算存储资源，提高效率。 能够更简洁明确地定义泛型函数。  std::move首先，std::move(">
+<meta name="twitter:description" content="std::move[TOC] 新特性的目的右值引用 (Rvalue Referene) 是 C++11中引入的新特性 , 它实现了转移语义 (Move Sementics) 和精确传递 (Perfect Forwarding)。它的主要目的有两个方面：  消除两个对象交互时不必要的对象拷贝，节省运算存储资源，提高效率。 能够更简洁明确地定义泛型函数。">
 
 
 
@@ -323,12 +323,24 @@
                 
               
 
-              <time title="Created: 2018-05-25 21:28:37 / Modified: 22:18:26" itemprop="dateCreated datePublished" datetime="2018-05-25T21:28:37+08:00">2018-05-25</time>
+              <time title="Created: 2018-05-25 21:28:37" itemprop="dateCreated datePublished" datetime="2018-05-25T21:28:37+08:00">2018-05-25</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2018-05-26 20:35:03" itemprop="dateModified" datetime="2018-05-26T20:35:03+08:00">2018-05-26</time>
               
             
           </span>
@@ -375,9 +387,10 @@
 <h3 id="新特性的目的"><a href="#新特性的目的" class="headerlink" title="新特性的目的"></a>新特性的目的</h3><p>右值引用 (Rvalue Referene) 是 C++11中引入的新特性 , 它实现了转移语义 (Move Sementics) 和精确传递 (Perfect Forwarding)。它的主要目的有两个方面：</p>
 <ul>
 <li>消除两个对象交互时不必要的对象拷贝，节省运算存储资源，提高效率。</li>
-<li>能够更简洁明确地定义泛型函数。</li>
+<li>能够更简洁明确地定义泛型函数。<a id="more"></a>
+<h3 id="std-move-1"><a href="#std-move-1" class="headerlink" title="std::move"></a>std::move</h3>首先，std::move() 并没有实际移动任何东西。<br>std::move的大致实现：<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="keyword">typename</span> remove_reference&lt;T&gt;::<span class="function">type&amp;&amp; <span class="title">move</span><span class="params">(T&amp;&amp; param)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">using</span> ReturnType = <span class="keyword">typename</span> remove_reference&lt;T&gt;::type&amp;&amp;;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">static_cast</span>&lt;ReturnType&gt;(param);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
 </ul>
-<h3 id="std-move-1"><a href="#std-move-1" class="headerlink" title="std::move"></a>std::move</h3><p>首先，std::move() 并没有实际移动任何东西。<br>std::move的大致实现：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="keyword">typename</span> remove_reference&lt;T&gt;::<span class="function">type&amp;&amp; <span class="title">move</span><span class="params">(T&amp;&amp; param)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">using</span> ReturnType = <span class="keyword">typename</span> remove_reference&lt;T&gt;::type&amp;&amp;;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">static_cast</span>&lt;ReturnType&gt;(param);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>可以看到：</p>
 <ul>
 <li><code>std::move</code>仅仅是进行了类型转换</li>
