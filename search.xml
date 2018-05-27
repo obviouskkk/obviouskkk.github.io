@@ -2,32 +2,44 @@
 <search>
   <entry>
     <title><![CDATA[std::move]]></title>
-    <url>%2F2018%2F05%2F25%2Fmove%2F</url>
-    <content type="text"><![CDATA[std::move[TOC] 新特性的目的右值引用 (Rvalue Referene) 是 C++11中引入的新特性 , 它实现了转移语义 (Move Sementics) 和精确传递 (Perfect Forwarding)。它的主要目的有两个方面： 消除两个对象交互时不必要的对象拷贝，节省运算存储资源，提高效率。 能够更简洁明确地定义泛型函数。 std::move首先，std::move() 并没有实际移动任何东西。std::move的大致实现：12345template&lt;typename T&gt;typename remove_reference&lt;T&gt;::type&amp;&amp; move(T&amp;&amp; param) &#123; using ReturnType = typename remove_reference&lt;T&gt;::type&amp;&amp;; return static_cast&lt;ReturnType&gt;(param);&#125; 可以看到： std::move仅仅是进行了类型转换 用std::remove_reference去掉T身上的引用，请看引用折叠。 move的名字其实更接近于rvalue_cast,把值转换为左值。 请不要误解为move接受的参数类型就是右值引用，实际上它是一个通用引用。 避免了不必要的深拷贝。当需要将某个对象的内容“转移”到其他位置时，您可以使用移动，而不进行复制（例如内容不重复，这就是为什么它可以用于某些不可复制的对象，如unique_ptr）。也可以使用std :: move来获取临时对象的内容，而无需复制（并节省大量时间）。它只是向编译器发出信号，程序员不再关心该对象发生了什么。 意义想一下上面的string a(x);想一下下面的场景： x是string类型，而构造x的目的如果仅仅是为了拷贝构造a 构造玩a，x就失去了意义，可以被随意折腾 现在有一个高效的移动构造函数：12345string(string&amp;&amp; that) // rvalue reference&#123; data = that.data; that.data = nullptr;&#125; 那么显然x目前是一个左值（俺有名字），无法match到参数为(string &amp;&amp;x)，到了std::move大显神威的时候了。 功能类型转换：获得一个右值，右值意味着告诉编译器：你可以使用、移动、侵占我所有的资源，因为我只是个右值。 移动构造函数工作是将资源从一个对象移到另一个对象而不是复制它们。复制构造函数会生成深层副本，因为源必须保持不变。另一方面，移动构造函数只能复制指针，然后将源中的指针设置为null。移动对象意味着将其管理的某些资源的所有权转移给另一个对象。想想智能指针。 下面是std::string的可能声明，注意move构造不带const（编译器要把参数掏空无法const） 加了const，就会调用上面的copy构造。12string(const string&amp; rhs); //copy ctorstring(string&amp;&amp; rhs); //move ctor 其他问题 C++11中return local_var与return std::move(local_var)效果是否相同？ 译器就把优化几乎做到了极致——局部变量返回到函数外部并赋值给外部变量这个过程基本上不存在任何多余的临时变量构造和析构，这比move机制更加高效。]]></content>
+    <url>%2F2018%2F05%2Fmove%2F</url>
+    <content type="text"><![CDATA[新特性的目的右值引用 (Rvalue Referene) 是 C++11中引入的新特性 , 它实现了转移语义 (Move Sementics) 和精确传递 (Perfect Forwarding)。它的主要目的有两个方面： 消除两个对象交互时不必要的对象拷贝，节省运算存储资源，提高效率。 能够更简洁明确地定义泛型函数。 std::move首先，std::move() 并没有实际移动任何东西。std::move的大致实现：12345template&lt;typename T&gt;typename remove_reference&lt;T&gt;::type&amp;&amp; move(T&amp;&amp; param) &#123; using ReturnType = typename remove_reference&lt;T&gt;::type&amp;&amp;; return static_cast&lt;ReturnType&gt;(param);&#125; 可以看到： std::move仅仅是进行了类型转换 用std::remove_reference去掉T身上的引用，请看引用折叠。 move的名字其实更接近于rvalue_cast,把值转换为左值。 请不要误解为move接受的参数类型就是右值引用，实际上它是一个通用引用。 避免了不必要的深拷贝。当需要将某个对象的内容“转移”到其他位置时，您可以使用移动，而不进行复制（例如内容不重复，这就是为什么它可以用于某些不可复制的对象，如unique_ptr）。也可以使用std :: move来获取临时对象的内容，而无需复制（并节省大量时间）。它只是向编译器发出信号，程序员不再关心该对象发生了什么。 意义想一下上面的string a(x);想一下下面的场景： x是string类型，而构造x的目的如果仅仅是为了拷贝构造a 构造玩a，x就失去了意义，可以被随意折腾 现在有一个高效的移动构造函数：12345string(string&amp;&amp; that) // rvalue reference&#123; data = that.data; that.data = nullptr;&#125; 那么显然x目前是一个左值（俺有名字），无法match到参数为(string &amp;&amp;x)，到了std::move大显神威的时候了。 功能类型转换：获得一个右值，右值意味着告诉编译器：你可以使用、移动、侵占我所有的资源，因为我只是个右值。 移动构造函数工作是将资源从一个对象移到另一个对象而不是复制它们。复制构造函数会生成深层副本，因为源必须保持不变。另一方面，移动构造函数只能复制指针，然后将源中的指针设置为null。移动对象意味着将其管理的某些资源的所有权转移给另一个对象。想想智能指针。 下面是std::string的可能声明，注意move构造不带const（编译器要把参数掏空无法const） 加了const，就会调用上面的copy构造。12string(const string&amp; rhs); //copy ctorstring(string&amp;&amp; rhs); //move ctor 其他问题 C++11中return local_var与return std::move(local_var)效果是否相同？ 编译器就把优化几乎做到了极致——局部变量返回到函数外部并赋值给外部变量这个过程基本上不存在任何多余的临时变量构造和析构，这比move机制更加高效。]]></content>
+      <categories>
+        <category>c++</category>
+      </categories>
       <tags>
-        <tag>C++11</tag>
+        <tag>c++11</tag>
       </tags>
   </entry>
   <entry>
     <title><![CDATA[左值、右值和引用]]></title>
-    <url>%2F2018%2F05%2F25%2Flvalue_rvalue%2F</url>
+    <url>%2F2018%2F05%2Flvalue_rvalue%2F</url>
     <content type="text"><![CDATA[左值、右值和引用[TOC] C++( 包括 C) 中所有的表达式和变量要么是左值，要么是右值。可以用以下方式理解左值和右值： 左值 左值的定义就是非临时对象，那些可以在多条语句中使用的对象。所有定义的变量都满足这个定义。 一个有用的，有启发意义的判断一个表达式是左值的方法是取它的地址。如果可以取地址，它基本上就是一个左值。如果不行，通常来说是一个右值。（Effective Modern C++）右值 一般没有名字 计算的中间过程，价值只是为了复制到一个有名字的对象。 右值是指临时的对象，它们只在当前的语句中有效。 一般函数返回值是右值。 一些举例123A a1 = GetA(); // a1是左值，GetA()返回的结果是右值int x, y;x+y; // x+y的结果是右值(甚至没有办法叫出名字) 左值引用和右值引用左值引用12int&amp; a = 5; // a是一个左值引用int GetX(int &amp; x); // x算是一个左值引用，虽然它是一个形参 L1 对于上面的GetX函数，显然123int x = 0;int y = Get(x); // okint z = Get(Get(x)) // error，no matching，里面的函数返回的是int &amp;&amp; 右值引用左值的声明符号为”&amp;”， 为了和左值区分，右值的声明符号为”&amp;&amp;”。12int &amp;&amp; a = 5; // 右值引用，可以对一个右值引用取地址 L2int GetX(int &amp;&amp; x); 对于上面的GetX函数，也显然1234int x = 0;int y = Get(x); // error，no matching ，x：int &amp;int &amp;&amp; a = 1; // no matterint &amp;&amp; b = x; // error 左值引用和右值引用 对函数的右值引用无论具名与否都将被视为左值 具名右值引用被视为左值，如int &amp; a = 666;，显然，它可以match到int fun(int x); 无名对对象的右值引用被视为x值 对函数的右值引用无论具名与否都将被视为左值,例如：int &amp;&amp; a = 5; int x = 1; int &amp;&amp; b = x;,a和b都可以作为左值。 参数都是左值不管他是一个左值还是一个右值。也就是说，给定一个类型T，你可以得到类型T的左值同时也可以得到它的右值。当处理一个有右值引用的参数时需要铭记于心，因为参数本身是个左值：可以取地址。类似的原因，所有的参数都是左值。实参和形参的区别是很重要的，因为形参只能是左值，但是给他们初始化的实参即有可能是右值也有可能是左值，例：实参std::move(wid)是右值，但是形参wid是左值， 一个抄来的例子123456789101112void process_value(int&amp; i) &#123; std::cout &lt;&lt; "LValue processed: " &lt;&lt; i &lt;&lt; std::endl; &#125; void process_value(int&amp;&amp; i) &#123; std::cout &lt;&lt; "RValue processed: " &lt;&lt; i &lt;&lt; std::endl; &#125; int main() &#123; int a = 0; process_value(a); process_value(1); &#125; 运行结果：12LValue processed: 0 RValue processed: 1 Process_value 函数被重载，分别接受左值和右值。由输出结果可以看出，临时对象是作为右值处理的。 通用引用注意下面这个模板函数12345template&lt;typename T&gt;int fun(T&amp;&amp; x) &#123; // ... return 0;&#125; 注意：T &amp;&amp; 不一定是一个右值引用，他其实是一个通用引用（叫法来自：Effective Modern C++ item24）因为以下调用方式居然都是成立的：1234567// funint x = 1;int y = fun(x);int &amp; a = x;y = fun(a);int &amp;&amp; b = 1;y = fun(b); 编译器推导出了些什么鬼东西，请看引用折叠 引用折叠对于引用有以下消除特性：1234A&amp; &amp; 变成 A&amp;A&amp; &amp;&amp; 变成 A&amp;A&amp;&amp; &amp; 变成 A&amp;A&amp;&amp; &amp;&amp; 变成 A&amp;&amp; 简单结论： 就是左值引用会传染，只有纯右值&amp;&amp; &amp;&amp; = &amp;&amp;，沾上一个左值引用就变左值引用了，根本原因就是：在一处声明为左值，编译器就必须保证此对象可靠（左值）。 引用折叠会出现在4中上下文：模板实例化，auto类型生成，typedef和类型别名声明的创建和使用，decltype。 那么，对于上面的int (T&amp;&amp; x)的几种调用方式就有：123456int x = 1;int y = fun(x); // T被推导为int &amp;，int &amp; &amp;&amp; 折叠为int&amp;int &amp; a = x; // y = fun(a); // T被推导为int &amp;，int &amp; &amp;&amp; 折叠为 int &amp;int &amp;&amp; b = 1;y = fun(b); // T被推导为int，int &amp;&amp;]]></content>
+      <categories>
+        <category>c++</category>
+      </categories>
       <tags>
-        <tag>C++11</tag>
+        <tag>c++11</tag>
       </tags>
   </entry>
   <entry>
     <title><![CDATA[More_Effective_C++]]></title>
-    <url>%2F2018%2F05%2F25%2FMore_Effective_C%2B%2B%2F</url>
-    <content type="text"><![CDATA[More_Effective_C++[TOC] 基础指针和引用 指针可以指向空值，可以被重新赋值；引用不可以 存在不指向任何对象的可能，或者需要在不同的时刻指向不同的内容，这个时候用指针。 重载操作符时或者不改变指向的时候，应该使用引用。尽量使用C++的类型转换安全，编译器会帮你检查。不要对数组使用多态 如果函数参数为父类型A，实际传入参数为子类型B，那么编译器不会报错或者警告 但是因为数组每次向后，都跳过一个sizeof(A)，但数组元素实际类型为B，造成越界。 一个具体的例子：数组和多态 避免无用的缺省构造函数 没有默认构造函数的话，B arrb[10]或者B * pb = new B[10] 不能调用构造函数。解决方法：B b[] = {B(1), b(2)...}或者利用指针数组来代替对象数组，即1234567typedef B* pb;pb arrayPb[10]; //不调用构造函数// 或者 pb * arraypb = new pb[10]; // 也不调用构造函数for (int i = 0; i &lt; 10; ++i)&#123; arraypb[i] = new B(i); // 调用构造函数&#125; 上面的第二种方法容易内存泄露。更好的方案是operator new[] 没有默认构造函数的第二个问题：无法在很多基于模板的容器类中使用，要求data = new T[size],当然vector不需要。 运算符]]></content>
+    <url>%2F2018%2F05%2FMore_Effective_C%2B%2B%2F</url>
+    <content type="text"><![CDATA[基础指针和引用 指针可以指向空值，可以被重新赋值；引用不可以 存在不指向任何对象的可能，或者需要在不同的时刻指向不同的内容，这个时候用指针。 重载操作符时或者不改变指向的时候，应该使用引用。尽量使用C++的类型转换安全，编译器会帮你检查。不要对数组使用多态 如果函数参数为父类型A，实际传入参数为子类型B，那么编译器不会报错或者警告 但是因为数组每次向后，都跳过一个sizeof(A)，但数组元素实际类型为B，造成越界。 一个具体的例子：数组和多态 避免无用的缺省构造函数 没有默认构造函数的话，B arrb[10]或者B * pb = new B[10] 不能调用构造函数。解决方法：B b[] = {B(1), b(2)...}或者利用指针数组来代替对象数组，即1234567typedef B* pb;pb arrayPb[10]; //不调用构造函数// 或者 pb * arraypb = new pb[10]; // 也不调用构造函数for (int i = 0; i &lt; 10; ++i)&#123; arraypb[i] = new B(i); // 调用构造函数&#125; 上面的第二种方法容易内存泄露。更好的方案是operator new[] 没有默认构造函数的第二个问题：无法在很多基于模板的容器类中使用，要求data = new T[size],当然vector不需要。]]></content>
+      <categories>
+        <category>c++</category>
+      </categories>
       <tags>
-        <tag>C++11</tag>
+        <tag>c++11</tag>
       </tags>
   </entry>
   <entry>
     <title><![CDATA[git 常用命令]]></title>
-    <url>%2F2018%2F05%2F25%2Fgit%2F</url>
-    <content type="text"><![CDATA[git常用操作公钥1ssh-keygen -t rsa 一般公钥存在~/.ssh/id_rsa.pub，并且需要你上传到github，gitlab等。 分支相关 git branch：查看本地有那些分支，结果branch前面带*号的是当前分支。 git branch -a：查看一共有哪些分支：,会列出所有分支，你可以根据分支名拉取分支代码 git checkout -b $branch_name：如果分支不存在，新建一个名字是$branch_name的分支，如果分支存在，拉取分支代码，并切换到分支： 上面的代码也相当于以下两行命令： git branch $branch_name git checkout $branch_name 切换分支：git checkout $branch_name 改完了代码，提交：git commit -m &#39;$text&#39; 提交分支：git push origin [name],如果不加name，会提交所有分支。 删除分支：git branch -d [name] 合并分支：git merge [name]，把分支合并到当前分支 拉取分支的更新：git checkout master;git pull origin,拉取master的更新 查看已经合并了的分支：git branch --merged,这个列表里面不带*的都可以删掉了，因为已经merged 查看未合并的分支：git branch --no-merged,这个不能删除，只能用git branch -D强制删除]]></content>
+    <url>%2F2018%2F05%2Fgit%2F</url>
+    <content type="text"><![CDATA[git常用操作生成公钥1ssh-keygen -t rsa 一般公钥存在~/.ssh/id_rsa.pub，并且需要你上传到github，gitlab等。 分支相关 git branch：查看本地有那些分支，结果branch前面带*号的是当前分支。 git branch -a：查看一共有哪些分支：,会列出所有分支，你可以根据分支名拉取分支代码 git checkout -b $branch_name：如果分支不存在，新建一个名字是$branch_name的分支，如果分支存在，拉取分支代码，并切换到分支： 上面的代码也相当于以下两行命令： git branch $branch_name git checkout $branch_name 切换分支：git checkout $branch_name 改完了代码，提交：git commit -m &#39;$text&#39; 提交分支：git push origin [name],如果不加name，会提交所有分支。 删除分支：git branch -d [name] 合并分支：git merge [name]，把分支合并到当前分支 拉取分支的更新：git checkout master;git pull origin,拉取master的更新 查看已经合并了的分支：git branch --merged,这个列表里面不带*的都可以删掉了，因为已经merged 查看未合并的分支：git branch --no-merged,这个不能删除，只能用git branch -D强制删除]]></content>
+      <categories>
+        <category>工具</category>
+      </categories>
       <tags>
         <tag>git</tag>
       </tags>

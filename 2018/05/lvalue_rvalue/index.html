@@ -108,23 +108,25 @@
 
 
 
-  <meta name="description" content="欢迎来到 zzy&apos;blog ,留下评论的同时记得留下你的邮箱哟">
-<meta property="og:type" content="website">
-<meta property="og:title" content="zzy&#39;s blog">
-<meta property="og:url" content="http://107zy.cn/index.html">
+  <meta name="description" content="左值、右值和引用[TOC] C++( 包括 C) 中所有的表达式和变量要么是左值，要么是右值。可以用以下方式理解左值和右值： 左值 左值的定义就是非临时对象，那些可以在多条语句中使用的对象。所有定义的变量都满足这个定义。 一个有用的，有启发意义的判断一个表达式是左值的方法是取它的地址。如果可以取地址，它基本上就是一个左值。如果不行，通常来说是一个右值。（Effective Modern C++）右">
+<meta name="keywords" content="c++11">
+<meta property="og:type" content="article">
+<meta property="og:title" content="左值、右值和引用">
+<meta property="og:url" content="http://107zy.cn/2018/05/lvalue_rvalue/index.html">
 <meta property="og:site_name" content="zzy&#39;s blog">
-<meta property="og:description" content="欢迎来到 zzy&apos;blog ,留下评论的同时记得留下你的邮箱哟">
+<meta property="og:description" content="左值、右值和引用[TOC] C++( 包括 C) 中所有的表达式和变量要么是左值，要么是右值。可以用以下方式理解左值和右值： 左值 左值的定义就是非临时对象，那些可以在多条语句中使用的对象。所有定义的变量都满足这个定义。 一个有用的，有启发意义的判断一个表达式是左值的方法是取它的地址。如果可以取地址，它基本上就是一个左值。如果不行，通常来说是一个右值。（Effective Modern C++）右">
 <meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-05-27T07:19:16.767Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="zzy&#39;s blog">
-<meta name="twitter:description" content="欢迎来到 zzy&apos;blog ,留下评论的同时记得留下你的邮箱哟">
+<meta name="twitter:title" content="左值、右值和引用">
+<meta name="twitter:description" content="左值、右值和引用[TOC] C++( 包括 C) 中所有的表达式和变量要么是左值，要么是右值。可以用以下方式理解左值和右值： 左值 左值的定义就是非临时对象，那些可以在多条语句中使用的对象。所有定义的变量都满足这个定义。 一个有用的，有启发意义的判断一个表达式是左值的方法是取它的地址。如果可以取地址，它基本上就是一个左值。如果不行，通常来说是一个右值。（Effective Modern C++）右">
 
 
 
 
 
 
-  <link rel="canonical" href="http://107zy.cn/"/>
+  <link rel="canonical" href="http://107zy.cn/2018/05/lvalue_rvalue/"/>
 
 
 
@@ -134,7 +136,7 @@
   };
 </script>
 
-  <title>zzy's blog</title>
+  <title>左值、右值和引用 | zzy's blog</title>
   
 
 
@@ -181,8 +183,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-  page-home">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -219,7 +220,7 @@
         
         
           
-          <li class="menu-item menu-item-home menu-item-active">
+          <li class="menu-item menu-item-home">
     <a href="/" rel="section">
       <i class="menu-item-icon fa fa-fw fa-home"></i> <br />Home</a>
   </li>
@@ -310,196 +311,9 @@
           
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://107zy.cn/2018/05/move/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="zzy">
-      <meta itemprop="description" content="欢迎来到 zzy'blog ,留下评论的同时记得留下你的邮箱哟">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="zzy's blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/05/move/" itemprop="url">
-                  std::move
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2018-05-25 21:28:37" itemprop="dateCreated datePublished" datetime="2018-05-25T21:28:37+08:00">2018-05-25</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2018-05-27 15:19:42" itemprop="dateModified" datetime="2018-05-27T15:19:42+08:00">2018-05-27</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/cplusplus/" itemprop="url" rel="index"><span itemprop="name">c++</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2018/05/move/#comments" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">Comments: </span> <span class="post-comments-count valine-comment-count" data-xid="/2018/05/move/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h3 id="新特性的目的"><a href="#新特性的目的" class="headerlink" title="新特性的目的"></a>新特性的目的</h3><p>右值引用 (Rvalue Referene) 是 C++11中引入的新特性 , 它实现了转移语义 (Move Sementics) 和精确传递 (Perfect Forwarding)。它的主要目的有两个方面：</p>
-<ul>
-<li>消除两个对象交互时不必要的对象拷贝，节省运算存储资源，提高效率。</li>
-<li>能够更简洁明确地定义泛型函数。
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/05/move/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
 
   
 
@@ -531,11 +345,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/05/lvalue_rvalue/" itemprop="url">
-                  左值、右值和引用
-                </a>
+          <h1 class="post-title" itemprop="name headline">左值、右值和引用
               
             
           </h1>
@@ -638,8 +448,7 @@
       
 
       
-        
-          <h2 id="左值、右值和引用"><a href="#左值、右值和引用" class="headerlink" title="左值、右值和引用"></a>左值、右值和引用</h2><p>[TOC]</p>
+        <h2 id="左值、右值和引用"><a href="#左值、右值和引用" class="headerlink" title="左值、右值和引用"></a>左值、右值和引用</h2><p>[TOC]</p>
 <p>C++( 包括 C) 中所有的表达式和变量要么是左值，要么是右值。可以用以下方式理解左值和右值：</p>
 <h4 id="左值"><a href="#左值" class="headerlink" title="左值"></a>左值</h4><ul>
 <li>左值的定义就是非临时对象，那些可以在多条语句中使用的对象。所有定义的变量都满足这个定义。</li>
@@ -647,15 +456,38 @@
 <li>一般没有名字</li>
 <li>计算的中间过程，价值只是为了<code>复制</code>到一个有名字的对象。</li>
 <li>右值是指临时的对象，它们只在当前的语句中有效。</li>
-<li>一般函数返回值是右值。
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/05/lvalue_rvalue/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
+<li>一般函数返回值是右值。<a id="more"></a>
+<h4 id="一些举例"><a href="#一些举例" class="headerlink" title="一些举例"></a>一些举例</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">A a1 = GetA();                                  <span class="comment">// a1是左值，GetA()返回的结果是右值</span></span><br><span class="line"><span class="keyword">int</span> x, y;</span><br><span class="line">x+y;                                            <span class="comment">// x+y的结果是右值(甚至没有办法叫出名字)</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="左值引用和右值引用"><a href="#左值引用和右值引用" class="headerlink" title="左值引用和右值引用"></a>左值引用和右值引用</h3><h4 id="左值引用"><a href="#左值引用" class="headerlink" title="左值引用"></a>左值引用</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span>&amp; a = <span class="number">5</span>;              <span class="comment">// a是一个左值引用</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">GetX</span><span class="params">(<span class="keyword">int</span> &amp; x)</span></span>;      <span class="comment">// x算是一个左值引用，虽然它是一个形参   L1</span></span><br></pre></td></tr></table></figure>
+<p>对于上面的<code>GetX</code>函数，显然<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> x = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">int</span> y = Get(x);      <span class="comment">// ok</span></span><br><span class="line"><span class="keyword">int</span> z = Get(Get(x))  <span class="comment">// error，no matching，里面的函数返回的是int &amp;&amp;</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="右值引用"><a href="#右值引用" class="headerlink" title="右值引用"></a>右值引用</h4><p>左值的声明符号为”&amp;”， 为了和左值区分，右值的声明符号为”&amp;&amp;”。<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> &amp;&amp; a = <span class="number">5</span>;        <span class="comment">// 右值引用，可以对一个右值引用取地址   L2</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">GetX</span><span class="params">(<span class="keyword">int</span> &amp;&amp; x)</span></span>;</span><br></pre></td></tr></table></figure></p>
+<p>对于上面的<code>GetX</code>函数，也显然<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> x = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">int</span> y = Get(x);      <span class="comment">// error，no matching ，x：int &amp;</span></span><br><span class="line"><span class="keyword">int</span> &amp;&amp; a = <span class="number">1</span>;  <span class="comment">// no matter</span></span><br><span class="line"><span class="keyword">int</span> &amp;&amp; b = x; <span class="comment">// error</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="左值引用和右值引用-1"><a href="#左值引用和右值引用-1" class="headerlink" title="左值引用和右值引用"></a>左值引用和右值引用</h4><ul>
+<li>对函数的右值引用无论具名与否都将被视为左值</li>
+<li>具名右值引用被视为左值，如<code>int &amp; a = 666;</code>，显然，它可以match到<code>int fun(int x)</code>;</li>
+<li>无名对对象的右值引用被视为x值</li>
+<li>对函数的右值引用无论具名与否都将被视为左值,例如：<code>int &amp;&amp; a = 5; int x = 1; int &amp;&amp; b = x;</code>,a和b都可以作为左值。</li>
+</ul>
+<h5 id="参数都是左值"><a href="#参数都是左值" class="headerlink" title="参数都是左值"></a>参数都是左值</h5><p>不管他是一个左值还是一个右值。也就是说，给定一个类型T，你可以得到类型T的左值同时也可以得到它的右值。当处理一个有右值引用的参数时需要铭记于心，因为参数本身是个左值：可以取地址。<br>类似的原因，所有的参数都是左值。<br>实参和形参的区别是很重要的，因为形参只能是左值，但是给他们初始化的实参即有可能是右值也有可能是左值，例：实参<code>std::move(wid)</code>是右值，但是形参<code>wid</code>是左值，</p>
+<h4 id="一个抄来的例子"><a href="#一个抄来的例子" class="headerlink" title="一个抄来的例子"></a>一个抄来的例子</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">process_value</span><span class="params">(<span class="keyword">int</span>&amp; i)</span> </span>&#123; </span><br><span class="line"> <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"LValue processed: "</span> &lt;&lt; i &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>; </span><br><span class="line">&#125; </span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">process_value</span><span class="params">(<span class="keyword">int</span>&amp;&amp; i)</span> </span>&#123; </span><br><span class="line"> <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"RValue processed: "</span> &lt;&lt; i &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>; </span><br><span class="line">&#125;  </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123; </span><br><span class="line"> <span class="keyword">int</span> a = <span class="number">0</span>; </span><br><span class="line"> process_value(a); </span><br><span class="line"> process_value(<span class="number">1</span>); </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行结果：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">LValue processed: <span class="number">0</span> </span><br><span class="line">RValue processed: <span class="number">1</span></span><br></pre></td></tr></table></figure></p>
+<p>Process_value 函数被重载，分别接受左值和右值。由输出结果可以看出，临时对象是作为右值处理的。</p>
+<h4 id="通用引用"><a href="#通用引用" class="headerlink" title="通用引用"></a>通用引用</h4><p>注意下面这个模板函数<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">fun</span><span class="params">(T&amp;&amp; x)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>注意：<code>T &amp;&amp;</code> 不一定是一个右值引用，他其实是一个通用引用（叫法来自：Effective Modern C++ item24）<br>因为以下调用方式居然都是成立的：<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// fun</span></span><br><span class="line"><span class="keyword">int</span> x = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">int</span> y = fun(x);</span><br><span class="line"><span class="keyword">int</span> &amp; a = x;</span><br><span class="line">y = fun(a);</span><br><span class="line"><span class="keyword">int</span> &amp;&amp; b = <span class="number">1</span>;</span><br><span class="line">y = fun(b);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>编译器推导出了些什么鬼东西，请看引用折叠</p>
+<h3 id="引用折叠"><a href="#引用折叠" class="headerlink" title="引用折叠"></a>引用折叠</h3><p>对于引用有以下消除特性：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">A&amp; &amp; 变成 A&amp;</span><br><span class="line">A&amp; &amp;&amp; 变成 A&amp;</span><br><span class="line">A&amp;&amp; &amp; 变成 A&amp;</span><br><span class="line">A&amp;&amp; &amp;&amp; 变成 A&amp;&amp;</span><br></pre></td></tr></table></figure></p>
+<p>简单结论：</p>
+<ul>
+<li>就是左值引用会传染，只有纯右值&amp;&amp; &amp;&amp; = &amp;&amp;，沾上一个左值引用就变左值引用了，根本原因就是：在一处声明为左值，编译器就必须保证此对象可靠（左值）。</li>
+<li>引用折叠会出现在4中上下文：模板实例化，auto类型生成，typedef和类型别名声明的创建和使用，decltype。</li>
+</ul>
+<p>那么，对于上面的<code>int (T&amp;&amp; x)</code>的几种调用方式就有：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> x = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">int</span> y = fun(x);   <span class="comment">// T被推导为int &amp;，int &amp; &amp;&amp; 折叠为int&amp;</span></span><br><span class="line"><span class="keyword">int</span> &amp; a = x;      <span class="comment">// </span></span><br><span class="line">y = fun(a);       <span class="comment">// T被推导为int &amp;，int &amp; &amp;&amp; 折叠为 int &amp;</span></span><br><span class="line"><span class="keyword">int</span> &amp;&amp; b = <span class="number">1</span>;</span><br><span class="line">y = fun(b);       <span class="comment">// T被推导为int，int &amp;&amp;</span></span><br></pre></td></tr></table></figure></p>
+
       
     </div>
 
@@ -673,388 +505,40 @@
 
     <footer class="post-footer">
       
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://107zy.cn/2018/05/More_Effective_C++/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="zzy">
-      <meta itemprop="description" content="欢迎来到 zzy'blog ,留下评论的同时记得留下你的邮箱哟">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="zzy's blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/05/More_Effective_C++/" itemprop="url">
-                  More_Effective_C++
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2018-05-25 21:14:37" itemprop="dateCreated datePublished" datetime="2018-05-25T21:14:37+08:00">2018-05-25</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2018-05-27 15:19:28" itemprop="dateModified" datetime="2018-05-27T15:19:28+08:00">2018-05-27</time>
-              
-            
-          </span>
-
+        <div class="post-tags">
           
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/cplusplus/" itemprop="url" rel="index"><span itemprop="name">c++</span></a></span>
-
-                
-                
-              
-            </span>
+            <a href="/tags/c-11/" rel="tag"># c++11</a>
           
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2018/05/More_Effective_C++/#comments" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">Comments: </span> <span class="post-comments-count valine-comment-count" data-xid="/2018/05/More_Effective_C++/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
         </div>
-      </header>
-    
+      
 
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
+      
       
       
 
       
-        
-          <h3 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h3><h4 id="指针和引用"><a href="#指针和引用" class="headerlink" title="指针和引用"></a>指针和引用</h4><ul>
-<li>指针可以指向空值，可以被重新赋值；引用不可以</li>
-<li>存在不指向任何对象的可能，或者需要在不同的时刻指向不同的内容，这个时候用指针。</li>
-<li>重载操作符时或者不改变指向的时候，应该使用引用。<h4 id="尽量使用C-的类型转换"><a href="#尽量使用C-的类型转换" class="headerlink" title="尽量使用C++的类型转换"></a>尽量使用C++的类型转换</h4>安全，编译器会帮你检查。<h4 id="不要对数组使用多态"><a href="#不要对数组使用多态" class="headerlink" title="不要对数组使用多态"></a>不要对数组使用多态</h4></li>
-<li>如果函数参数为父类型A，实际传入参数为子类型B，那么编译器不会报错或者警告</li>
-<li>但是因为数组每次向后，都跳过一个sizeof(A)，但数组元素实际类型为B，造成越界。
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/05/More_Effective_C++/#more" rel="contents">
-              Read more &raquo;
-            </a>
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/05/More_Effective_C++/" rel="next" title="More_Effective_C++">
+                <i class="fa fa-chevron-left"></i> More_Effective_C++
+              </a>
+            
           </div>
-          <!--/noindex-->
-        
-      
-    </div>
 
-    
+          <span class="post-nav-divider"></span>
 
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://107zy.cn/2018/05/git/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="zzy">
-      <meta itemprop="description" content="欢迎来到 zzy'blog ,留下评论的同时记得留下你的邮箱哟">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="zzy's blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/05/git/" itemprop="url">
-                  git 常用命令
-                </a>
-              
+          <div class="post-nav-prev post-nav-item">
             
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
+              <a href="/2018/05/move/" rel="prev" title="std::move">
+                std::move <i class="fa fa-chevron-right"></i>
+              </a>
             
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2018-05-25 21:14:37" itemprop="dateCreated datePublished" datetime="2018-05-25T21:14:37+08:00">2018-05-25</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2018-05-27 15:18:56" itemprop="dateModified" datetime="2018-05-27T15:18:56+08:00">2018-05-27</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/工具/" itemprop="url" rel="index"><span itemprop="name">工具</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2018/05/git/#comments" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">Comments: </span> <span class="post-comments-count valine-comment-count" data-xid="/2018/05/git/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
+          </div>
         </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          <h2 id="git常用操作"><a href="#git常用操作" class="headerlink" title="git常用操作"></a>git常用操作</h2><h3 id="生成公钥"><a href="#生成公钥" class="headerlink" title="生成公钥"></a>生成公钥</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa</span><br></pre></td></tr></table></figure>
-<p>一般公钥存在<code>~/.ssh/id_rsa.pub</code>，并且需要你上传到github，gitlab等。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/05/git/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -1064,14 +548,22 @@
   </article>
 
 
-    
-  </section>
 
-  
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
           
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
 
         </div>
         
@@ -1092,8 +584,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -1172,6 +673,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#左值、右值和引用"><span class="nav-number">1.</span> <span class="nav-text">左值、右值和引用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#左值"><span class="nav-number">1.0.1.</span> <span class="nav-text">左值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#右值"><span class="nav-number">1.0.2.</span> <span class="nav-text">右值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#一些举例"><span class="nav-number">1.0.3.</span> <span class="nav-text">一些举例</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#左值引用和右值引用"><span class="nav-number">1.1.</span> <span class="nav-text">左值引用和右值引用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#左值引用"><span class="nav-number">1.1.1.</span> <span class="nav-text">左值引用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#右值引用"><span class="nav-number">1.1.2.</span> <span class="nav-text">右值引用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#左值引用和右值引用-1"><span class="nav-number">1.1.3.</span> <span class="nav-text">左值引用和右值引用</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#参数都是左值"><span class="nav-number">1.1.3.1.</span> <span class="nav-text">参数都是左值</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#一个抄来的例子"><span class="nav-number">1.1.4.</span> <span class="nav-text">一个抄来的例子</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#通用引用"><span class="nav-number">1.1.5.</span> <span class="nav-text">通用引用</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#引用折叠"><span class="nav-number">1.2.</span> <span class="nav-text">引用折叠</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -1299,6 +816,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.3.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.3.0"></script>
+
+
 
   
 
