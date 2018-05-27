@@ -108,25 +108,25 @@
 
 
 
-  <meta name="description" content="左值、右值和引用[TOC] C++( 包括 C) 中所有的表达式和变量要么是左值，要么是右值。可以用以下方式理解左值和右值： 左值 左值的定义就是非临时对象，那些可以在多条语句中使用的对象。所有定义的变量都满足这个定义。 一个有用的，有启发意义的判断一个表达式是左值的方法是取它的地址。如果可以取地址，它基本上就是一个左值。如果不行，通常来说是一个右值。（Effective Modern C++）右">
+  <meta name="description" content="新特性的目的右值引用 (Rvalue Referene) 是 C++11中引入的新特性 , 它实现了转移语义 (Move Sementics) 和精确传递 (Perfect Forwarding)。它的主要目的有两个方面：  消除两个对象交互时不必要的对象拷贝，节省运算存储资源，提高效率。 能够更简洁明确地定义泛型函数。">
 <meta name="keywords" content="c++11">
 <meta property="og:type" content="article">
-<meta property="og:title" content="左值、右值和引用">
-<meta property="og:url" content="http://107zy.cn/2018/05/lvalue_rvalue/index.html">
+<meta property="og:title" content="std::move">
+<meta property="og:url" content="http://107zy.cn/c++/move/index.html">
 <meta property="og:site_name" content="zzy&#39;s blog">
-<meta property="og:description" content="左值、右值和引用[TOC] C++( 包括 C) 中所有的表达式和变量要么是左值，要么是右值。可以用以下方式理解左值和右值： 左值 左值的定义就是非临时对象，那些可以在多条语句中使用的对象。所有定义的变量都满足这个定义。 一个有用的，有启发意义的判断一个表达式是左值的方法是取它的地址。如果可以取地址，它基本上就是一个左值。如果不行，通常来说是一个右值。（Effective Modern C++）右">
+<meta property="og:description" content="新特性的目的右值引用 (Rvalue Referene) 是 C++11中引入的新特性 , 它实现了转移语义 (Move Sementics) 和精确传递 (Perfect Forwarding)。它的主要目的有两个方面：  消除两个对象交互时不必要的对象拷贝，节省运算存储资源，提高效率。 能够更简洁明确地定义泛型函数。">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-05-27T07:19:16.767Z">
+<meta property="og:updated_time" content="2018-05-27T07:19:42.374Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="左值、右值和引用">
-<meta name="twitter:description" content="左值、右值和引用[TOC] C++( 包括 C) 中所有的表达式和变量要么是左值，要么是右值。可以用以下方式理解左值和右值： 左值 左值的定义就是非临时对象，那些可以在多条语句中使用的对象。所有定义的变量都满足这个定义。 一个有用的，有启发意义的判断一个表达式是左值的方法是取它的地址。如果可以取地址，它基本上就是一个左值。如果不行，通常来说是一个右值。（Effective Modern C++）右">
+<meta name="twitter:title" content="std::move">
+<meta name="twitter:description" content="新特性的目的右值引用 (Rvalue Referene) 是 C++11中引入的新特性 , 它实现了转移语义 (Move Sementics) 和精确传递 (Perfect Forwarding)。它的主要目的有两个方面：  消除两个对象交互时不必要的对象拷贝，节省运算存储资源，提高效率。 能够更简洁明确地定义泛型函数。">
 
 
 
 
 
 
-  <link rel="canonical" href="http://107zy.cn/2018/05/lvalue_rvalue/"/>
+  <link rel="canonical" href="http://107zy.cn/c++/move/"/>
 
 
 
@@ -136,7 +136,7 @@
   };
 </script>
 
-  <title>左值、右值和引用 | zzy's blog</title>
+  <title>std::move | zzy's blog</title>
   
 
 
@@ -328,7 +328,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://107zy.cn/2018/05/lvalue_rvalue/">
+    <link itemprop="mainEntityOfPage" href="http://107zy.cn/c++/move/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="zzy">
@@ -345,7 +345,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">左值、右值和引用
+          <h1 class="post-title" itemprop="name headline">std::move
               
             
           </h1>
@@ -370,7 +370,7 @@
                 
               
 
-              <time title="Created: 2018-05-25 21:17:37" itemprop="dateCreated datePublished" datetime="2018-05-25T21:17:37+08:00">2018-05-25</time>
+              <time title="Created: 2018-05-25 21:28:37" itemprop="dateCreated datePublished" datetime="2018-05-25T21:28:37+08:00">2018-05-25</time>
             
 
             
@@ -387,7 +387,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2018-05-27 15:19:16" itemprop="dateModified" datetime="2018-05-27T15:19:16+08:00">2018-05-27</time>
+                <time title="Modified: 2018-05-27 15:19:42" itemprop="dateModified" datetime="2018-05-27T15:19:42+08:00">2018-05-27</time>
               
             
           </span>
@@ -419,8 +419,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/05/lvalue_rvalue/#comments" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">Comments: </span> <span class="post-comments-count valine-comment-count" data-xid="/2018/05/lvalue_rvalue/" itemprop="commentCount"></span>
+                <a href="/c++/move/#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">Comments: </span> <span class="post-comments-count valine-comment-count" data-xid="/c++/move/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -448,45 +448,40 @@
       
 
       
-        <h2 id="左值、右值和引用"><a href="#左值、右值和引用" class="headerlink" title="左值、右值和引用"></a>左值、右值和引用</h2><p>[TOC]</p>
-<p>C++( 包括 C) 中所有的表达式和变量要么是左值，要么是右值。可以用以下方式理解左值和右值：</p>
-<h4 id="左值"><a href="#左值" class="headerlink" title="左值"></a>左值</h4><ul>
-<li>左值的定义就是非临时对象，那些可以在多条语句中使用的对象。所有定义的变量都满足这个定义。</li>
-<li>一个有用的，有启发意义的判断一个表达式是左值的方法是取它的地址。如果可以取地址，它基本上就是一个左值。如果不行，通常来说是一个右值。（Effective Modern C++）<h4 id="右值"><a href="#右值" class="headerlink" title="右值"></a>右值</h4></li>
-<li>一般没有名字</li>
-<li>计算的中间过程，价值只是为了<code>复制</code>到一个有名字的对象。</li>
-<li>右值是指临时的对象，它们只在当前的语句中有效。</li>
-<li>一般函数返回值是右值。<a id="more"></a>
-<h4 id="一些举例"><a href="#一些举例" class="headerlink" title="一些举例"></a>一些举例</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">A a1 = GetA();                                  <span class="comment">// a1是左值，GetA()返回的结果是右值</span></span><br><span class="line"><span class="keyword">int</span> x, y;</span><br><span class="line">x+y;                                            <span class="comment">// x+y的结果是右值(甚至没有办法叫出名字)</span></span><br></pre></td></tr></table></figure>
+        <h3 id="新特性的目的"><a href="#新特性的目的" class="headerlink" title="新特性的目的"></a>新特性的目的</h3><p>右值引用 (Rvalue Referene) 是 C++11中引入的新特性 , 它实现了转移语义 (Move Sementics) 和精确传递 (Perfect Forwarding)。它的主要目的有两个方面：</p>
+<ul>
+<li>消除两个对象交互时不必要的对象拷贝，节省运算存储资源，提高效率。</li>
+<li>能够更简洁明确地定义泛型函数。<a id="more"></a>
+<h3 id="std-move"><a href="#std-move" class="headerlink" title="std::move"></a>std::move</h3>首先，std::move() 并没有实际移动任何东西。<br>std::move的大致实现：<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="keyword">typename</span> remove_reference&lt;T&gt;::<span class="function">type&amp;&amp; <span class="title">move</span><span class="params">(T&amp;&amp; param)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">using</span> ReturnType = <span class="keyword">typename</span> remove_reference&lt;T&gt;::type&amp;&amp;;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">static_cast</span>&lt;ReturnType&gt;(param);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<h3 id="左值引用和右值引用"><a href="#左值引用和右值引用" class="headerlink" title="左值引用和右值引用"></a>左值引用和右值引用</h3><h4 id="左值引用"><a href="#左值引用" class="headerlink" title="左值引用"></a>左值引用</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span>&amp; a = <span class="number">5</span>;              <span class="comment">// a是一个左值引用</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">GetX</span><span class="params">(<span class="keyword">int</span> &amp; x)</span></span>;      <span class="comment">// x算是一个左值引用，虽然它是一个形参   L1</span></span><br></pre></td></tr></table></figure>
-<p>对于上面的<code>GetX</code>函数，显然<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> x = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">int</span> y = Get(x);      <span class="comment">// ok</span></span><br><span class="line"><span class="keyword">int</span> z = Get(Get(x))  <span class="comment">// error，no matching，里面的函数返回的是int &amp;&amp;</span></span><br></pre></td></tr></table></figure></p>
-<h4 id="右值引用"><a href="#右值引用" class="headerlink" title="右值引用"></a>右值引用</h4><p>左值的声明符号为”&amp;”， 为了和左值区分，右值的声明符号为”&amp;&amp;”。<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> &amp;&amp; a = <span class="number">5</span>;        <span class="comment">// 右值引用，可以对一个右值引用取地址   L2</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">GetX</span><span class="params">(<span class="keyword">int</span> &amp;&amp; x)</span></span>;</span><br></pre></td></tr></table></figure></p>
-<p>对于上面的<code>GetX</code>函数，也显然<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> x = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">int</span> y = Get(x);      <span class="comment">// error，no matching ，x：int &amp;</span></span><br><span class="line"><span class="keyword">int</span> &amp;&amp; a = <span class="number">1</span>;  <span class="comment">// no matter</span></span><br><span class="line"><span class="keyword">int</span> &amp;&amp; b = x; <span class="comment">// error</span></span><br></pre></td></tr></table></figure></p>
-<h4 id="左值引用和右值引用-1"><a href="#左值引用和右值引用-1" class="headerlink" title="左值引用和右值引用"></a>左值引用和右值引用</h4><ul>
-<li>对函数的右值引用无论具名与否都将被视为左值</li>
-<li>具名右值引用被视为左值，如<code>int &amp; a = 666;</code>，显然，它可以match到<code>int fun(int x)</code>;</li>
-<li>无名对对象的右值引用被视为x值</li>
-<li>对函数的右值引用无论具名与否都将被视为左值,例如：<code>int &amp;&amp; a = 5; int x = 1; int &amp;&amp; b = x;</code>,a和b都可以作为左值。</li>
-</ul>
-<h5 id="参数都是左值"><a href="#参数都是左值" class="headerlink" title="参数都是左值"></a>参数都是左值</h5><p>不管他是一个左值还是一个右值。也就是说，给定一个类型T，你可以得到类型T的左值同时也可以得到它的右值。当处理一个有右值引用的参数时需要铭记于心，因为参数本身是个左值：可以取地址。<br>类似的原因，所有的参数都是左值。<br>实参和形参的区别是很重要的，因为形参只能是左值，但是给他们初始化的实参即有可能是右值也有可能是左值，例：实参<code>std::move(wid)</code>是右值，但是形参<code>wid</code>是左值，</p>
-<h4 id="一个抄来的例子"><a href="#一个抄来的例子" class="headerlink" title="一个抄来的例子"></a>一个抄来的例子</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">process_value</span><span class="params">(<span class="keyword">int</span>&amp; i)</span> </span>&#123; </span><br><span class="line"> <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"LValue processed: "</span> &lt;&lt; i &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>; </span><br><span class="line">&#125; </span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">process_value</span><span class="params">(<span class="keyword">int</span>&amp;&amp; i)</span> </span>&#123; </span><br><span class="line"> <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"RValue processed: "</span> &lt;&lt; i &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>; </span><br><span class="line">&#125;  </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123; </span><br><span class="line"> <span class="keyword">int</span> a = <span class="number">0</span>; </span><br><span class="line"> process_value(a); </span><br><span class="line"> process_value(<span class="number">1</span>); </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>运行结果：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">LValue processed: <span class="number">0</span> </span><br><span class="line">RValue processed: <span class="number">1</span></span><br></pre></td></tr></table></figure></p>
-<p>Process_value 函数被重载，分别接受左值和右值。由输出结果可以看出，临时对象是作为右值处理的。</p>
-<h4 id="通用引用"><a href="#通用引用" class="headerlink" title="通用引用"></a>通用引用</h4><p>注意下面这个模板函数<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">fun</span><span class="params">(T&amp;&amp; x)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>可以看到：</p>
 <ul>
-<li>注意：<code>T &amp;&amp;</code> 不一定是一个右值引用，他其实是一个通用引用（叫法来自：Effective Modern C++ item24）<br>因为以下调用方式居然都是成立的：<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// fun</span></span><br><span class="line"><span class="keyword">int</span> x = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">int</span> y = fun(x);</span><br><span class="line"><span class="keyword">int</span> &amp; a = x;</span><br><span class="line">y = fun(a);</span><br><span class="line"><span class="keyword">int</span> &amp;&amp; b = <span class="number">1</span>;</span><br><span class="line">y = fun(b);</span><br></pre></td></tr></table></figure>
+<li><code>std::move</code>仅仅是进行了类型转换</li>
+<li>用<code>std::remove_reference</code>去掉T身上的引用，请看<a href="https://blog.csdn.net/o_bvious/article/details/80315806#%E5%BC%95%E7%94%A8%E6%8A%98%E5%8F%A0" target="_blank" rel="noopener">引用折叠</a>。</li>
+<li>move的名字其实更接近于<code>rvalue_cast</code>,把值转换为左值。</li>
+<li>请不要误解为move接受的参数类型就是右值引用，实际上它是一个<a href="https://blog.csdn.net/o_bvious/article/details/80315806#%E9%80%9A%E7%94%A8%E5%BC%95%E7%94%A8" target="_blank" rel="noopener">通用引用</a>。</li>
+</ul>
+<p>避免了不必要的深拷贝。<br>当需要将某个对象的内容“转移”到其他位置时，您可以使用移动，而不进行复制（例如内容不重复，这就是为什么它可以用于某些不可复制的对象，如unique_ptr）。<br>也可以使用std :: move来获取临时对象的内容，而无需复制（并节省大量时间）。<br>它只是向编译器发出信号，程序员不再关心该对象发生了什么。</p>
+<h5 id="意义"><a href="#意义" class="headerlink" title="意义"></a>意义</h5><p>想一下上面的<code>string a(x);</code>想一下下面的场景：</p>
+<ul>
+<li>x是string类型，而构造x的目的如果仅仅是为了拷贝构造a</li>
+<li>构造玩a，x就失去了意义，可以被随意折腾</li>
+<li>现在有一个高效的移动构造函数：<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">string</span>(<span class="built_in">string</span>&amp;&amp; that)   <span class="comment">// rvalue reference</span></span><br><span class="line">&#123;</span><br><span class="line">    data = that.data;</span><br><span class="line">    that.data = <span class="literal">nullptr</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<p>编译器推导出了些什么鬼东西，请看引用折叠</p>
-<h3 id="引用折叠"><a href="#引用折叠" class="headerlink" title="引用折叠"></a>引用折叠</h3><p>对于引用有以下消除特性：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">A&amp; &amp; 变成 A&amp;</span><br><span class="line">A&amp; &amp;&amp; 变成 A&amp;</span><br><span class="line">A&amp;&amp; &amp; 变成 A&amp;</span><br><span class="line">A&amp;&amp; &amp;&amp; 变成 A&amp;&amp;</span><br></pre></td></tr></table></figure></p>
-<p>简单结论：</p>
+<p>那么显然x目前是一个左值（俺有名字），无法match到参数为(string &amp;&amp;x)，到了<code>std::move</code>大显神威的时候了。</p>
+<h5 id="功能"><a href="#功能" class="headerlink" title="功能"></a>功能</h5><p>类型转换：获得一个右值，右值意味着告诉编译器：你可以使用、移动、侵占我所有的资源，因为我只是个右值。</p>
+<h4 id="移动构造函数"><a href="#移动构造函数" class="headerlink" title="移动构造函数"></a>移动构造函数</h4><p>工作是将资源从一个对象移到另一个对象而不是复制它们。<br>复制构造函数会生成深层副本，因为源必须保持不变。另一方面，移动构造函数只能复制指针，然后将源中的指针设置为null。<br>移动对象意味着将其管理的某些资源的所有权转移给另一个对象。想想智能指针。</p>
 <ul>
-<li>就是左值引用会传染，只有纯右值&amp;&amp; &amp;&amp; = &amp;&amp;，沾上一个左值引用就变左值引用了，根本原因就是：在一处声明为左值，编译器就必须保证此对象可靠（左值）。</li>
-<li>引用折叠会出现在4中上下文：模板实例化，auto类型生成，typedef和类型别名声明的创建和使用，decltype。</li>
+<li>下面是<code>std::string</code>的可能声明，注意move构造不带const（编译器要把参数掏空无法const）</li>
+<li>加了const，就会调用上面的copy构造。<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">string</span>(<span class="keyword">const</span> <span class="built_in">string</span>&amp; rhs);        <span class="comment">//copy ctor</span></span><br><span class="line"><span class="built_in">string</span>(<span class="built_in">string</span>&amp;&amp; rhs);            <span class="comment">//move ctor</span></span><br></pre></td></tr></table></figure>
+</li>
 </ul>
-<p>那么，对于上面的<code>int (T&amp;&amp; x)</code>的几种调用方式就有：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> x = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">int</span> y = fun(x);   <span class="comment">// T被推导为int &amp;，int &amp; &amp;&amp; 折叠为int&amp;</span></span><br><span class="line"><span class="keyword">int</span> &amp; a = x;      <span class="comment">// </span></span><br><span class="line">y = fun(a);       <span class="comment">// T被推导为int &amp;，int &amp; &amp;&amp; 折叠为 int &amp;</span></span><br><span class="line"><span class="keyword">int</span> &amp;&amp; b = <span class="number">1</span>;</span><br><span class="line">y = fun(b);       <span class="comment">// T被推导为int，int &amp;&amp;</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="其他问题"><a href="#其他问题" class="headerlink" title="其他问题"></a>其他问题</h4><ul>
+<li>C++11中<code>return local_var</code>与<code>return std::move(local_var)</code>效果是否相同？</li>
+</ul>
+<p>编译器就把优化几乎做到了极致——局部变量返回到函数外部并赋值给外部变量这个过程基本上不存在任何多余的临时变量构造和析构，这比move机制更加高效。</p>
 
       
     </div>
@@ -520,8 +515,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/05/More_Effective_C++/" rel="next" title="More_Effective_C++">
-                <i class="fa fa-chevron-left"></i> More_Effective_C++
+              <a href="/c++/lvalue_rvalue/" rel="next" title="左值、右值和引用">
+                <i class="fa fa-chevron-left"></i> 左值、右值和引用
               </a>
             
           </div>
@@ -529,10 +524,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/05/move/" rel="prev" title="std::move">
-                std::move <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -626,8 +617,6 @@
                     
                       
                     
-                      
-                    
                     <span class="site-state-item-count">2</span>
                     <span class="site-state-item-name">categories</span>
                   </a>
@@ -640,8 +629,6 @@
                 <div class="site-state-item site-state-tags">
                   <a href="/tags/index.html">
                     
-                    
-                      
                     
                       
                     
@@ -683,7 +670,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#左值、右值和引用"><span class="nav-number">1.</span> <span class="nav-text">左值、右值和引用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#左值"><span class="nav-number">1.0.1.</span> <span class="nav-text">左值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#右值"><span class="nav-number">1.0.2.</span> <span class="nav-text">右值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#一些举例"><span class="nav-number">1.0.3.</span> <span class="nav-text">一些举例</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#左值引用和右值引用"><span class="nav-number">1.1.</span> <span class="nav-text">左值引用和右值引用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#左值引用"><span class="nav-number">1.1.1.</span> <span class="nav-text">左值引用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#右值引用"><span class="nav-number">1.1.2.</span> <span class="nav-text">右值引用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#左值引用和右值引用-1"><span class="nav-number">1.1.3.</span> <span class="nav-text">左值引用和右值引用</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#参数都是左值"><span class="nav-number">1.1.3.1.</span> <span class="nav-text">参数都是左值</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#一个抄来的例子"><span class="nav-number">1.1.4.</span> <span class="nav-text">一个抄来的例子</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#通用引用"><span class="nav-number">1.1.5.</span> <span class="nav-text">通用引用</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#引用折叠"><span class="nav-number">1.2.</span> <span class="nav-text">引用折叠</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#新特性的目的"><span class="nav-number">1.</span> <span class="nav-text">新特性的目的</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#std-move"><span class="nav-number">2.</span> <span class="nav-text">std::move</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#意义"><span class="nav-number">2.0.1.</span> <span class="nav-text">意义</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#功能"><span class="nav-number">2.0.2.</span> <span class="nav-text">功能</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#移动构造函数"><span class="nav-number">2.1.</span> <span class="nav-text">移动构造函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#其他问题"><span class="nav-number">2.2.</span> <span class="nav-text">其他问题</span></a></li></ol></li></ol></div>
             
 
           </div>

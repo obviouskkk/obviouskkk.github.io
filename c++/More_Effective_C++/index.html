@@ -108,25 +108,25 @@
 
 
 
-  <meta name="description" content="新特性的目的右值引用 (Rvalue Referene) 是 C++11中引入的新特性 , 它实现了转移语义 (Move Sementics) 和精确传递 (Perfect Forwarding)。它的主要目的有两个方面：  消除两个对象交互时不必要的对象拷贝，节省运算存储资源，提高效率。 能够更简洁明确地定义泛型函数。">
+  <meta name="description" content="基础指针和引用 指针可以指向空值，可以被重新赋值；引用不可以 存在不指向任何对象的可能，或者需要在不同的时刻指向不同的内容，这个时候用指针。 重载操作符时或者不改变指向的时候，应该使用引用。尽量使用C++的类型转换安全，编译器会帮你检查。不要对数组使用多态 如果函数参数为父类型A，实际传入参数为子类型B，那么编译器不会报错或者警告 但是因为数组每次向后，都跳过一个sizeof(A)，但数组元素实际">
 <meta name="keywords" content="c++11">
 <meta property="og:type" content="article">
-<meta property="og:title" content="std::move">
-<meta property="og:url" content="http://107zy.cn/2018/05/move/index.html">
+<meta property="og:title" content="More_Effective_C++">
+<meta property="og:url" content="http://107zy.cn/c++/More_Effective_C++/index.html">
 <meta property="og:site_name" content="zzy&#39;s blog">
-<meta property="og:description" content="新特性的目的右值引用 (Rvalue Referene) 是 C++11中引入的新特性 , 它实现了转移语义 (Move Sementics) 和精确传递 (Perfect Forwarding)。它的主要目的有两个方面：  消除两个对象交互时不必要的对象拷贝，节省运算存储资源，提高效率。 能够更简洁明确地定义泛型函数。">
+<meta property="og:description" content="基础指针和引用 指针可以指向空值，可以被重新赋值；引用不可以 存在不指向任何对象的可能，或者需要在不同的时刻指向不同的内容，这个时候用指针。 重载操作符时或者不改变指向的时候，应该使用引用。尽量使用C++的类型转换安全，编译器会帮你检查。不要对数组使用多态 如果函数参数为父类型A，实际传入参数为子类型B，那么编译器不会报错或者警告 但是因为数组每次向后，都跳过一个sizeof(A)，但数组元素实际">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-05-27T07:19:42.374Z">
+<meta property="og:updated_time" content="2018-05-27T07:19:28.818Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="std::move">
-<meta name="twitter:description" content="新特性的目的右值引用 (Rvalue Referene) 是 C++11中引入的新特性 , 它实现了转移语义 (Move Sementics) 和精确传递 (Perfect Forwarding)。它的主要目的有两个方面：  消除两个对象交互时不必要的对象拷贝，节省运算存储资源，提高效率。 能够更简洁明确地定义泛型函数。">
+<meta name="twitter:title" content="More_Effective_C++">
+<meta name="twitter:description" content="基础指针和引用 指针可以指向空值，可以被重新赋值；引用不可以 存在不指向任何对象的可能，或者需要在不同的时刻指向不同的内容，这个时候用指针。 重载操作符时或者不改变指向的时候，应该使用引用。尽量使用C++的类型转换安全，编译器会帮你检查。不要对数组使用多态 如果函数参数为父类型A，实际传入参数为子类型B，那么编译器不会报错或者警告 但是因为数组每次向后，都跳过一个sizeof(A)，但数组元素实际">
 
 
 
 
 
 
-  <link rel="canonical" href="http://107zy.cn/2018/05/move/"/>
+  <link rel="canonical" href="http://107zy.cn/c++/More_Effective_C++/"/>
 
 
 
@@ -136,7 +136,7 @@
   };
 </script>
 
-  <title>std::move | zzy's blog</title>
+  <title>More_Effective_C++ | zzy's blog</title>
   
 
 
@@ -328,7 +328,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://107zy.cn/2018/05/move/">
+    <link itemprop="mainEntityOfPage" href="http://107zy.cn/c++/More_Effective_C++/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="zzy">
@@ -345,7 +345,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">std::move
+          <h1 class="post-title" itemprop="name headline">More_Effective_C++
               
             
           </h1>
@@ -370,7 +370,7 @@
                 
               
 
-              <time title="Created: 2018-05-25 21:28:37" itemprop="dateCreated datePublished" datetime="2018-05-25T21:28:37+08:00">2018-05-25</time>
+              <time title="Created: 2018-05-25 21:14:37" itemprop="dateCreated datePublished" datetime="2018-05-25T21:14:37+08:00">2018-05-25</time>
             
 
             
@@ -387,7 +387,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2018-05-27 15:19:42" itemprop="dateModified" datetime="2018-05-27T15:19:42+08:00">2018-05-27</time>
+                <time title="Modified: 2018-05-27 15:19:28" itemprop="dateModified" datetime="2018-05-27T15:19:28+08:00">2018-05-27</time>
               
             
           </span>
@@ -419,8 +419,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/05/move/#comments" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">Comments: </span> <span class="post-comments-count valine-comment-count" data-xid="/2018/05/move/" itemprop="commentCount"></span>
+                <a href="/c++/More_Effective_C++/#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">Comments: </span> <span class="post-comments-count valine-comment-count" data-xid="/c++/More_Effective_C++/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -448,40 +448,22 @@
       
 
       
-        <h3 id="新特性的目的"><a href="#新特性的目的" class="headerlink" title="新特性的目的"></a>新特性的目的</h3><p>右值引用 (Rvalue Referene) 是 C++11中引入的新特性 , 它实现了转移语义 (Move Sementics) 和精确传递 (Perfect Forwarding)。它的主要目的有两个方面：</p>
-<ul>
-<li>消除两个对象交互时不必要的对象拷贝，节省运算存储资源，提高效率。</li>
-<li>能够更简洁明确地定义泛型函数。<a id="more"></a>
-<h3 id="std-move"><a href="#std-move" class="headerlink" title="std::move"></a>std::move</h3>首先，std::move() 并没有实际移动任何东西。<br>std::move的大致实现：<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="keyword">typename</span> remove_reference&lt;T&gt;::<span class="function">type&amp;&amp; <span class="title">move</span><span class="params">(T&amp;&amp; param)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">using</span> ReturnType = <span class="keyword">typename</span> remove_reference&lt;T&gt;::type&amp;&amp;;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">static_cast</span>&lt;ReturnType&gt;(param);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        <h3 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h3><h4 id="指针和引用"><a href="#指针和引用" class="headerlink" title="指针和引用"></a>指针和引用</h4><ul>
+<li>指针可以指向空值，可以被重新赋值；引用不可以</li>
+<li>存在不指向任何对象的可能，或者需要在不同的时刻指向不同的内容，这个时候用指针。</li>
+<li>重载操作符时或者不改变指向的时候，应该使用引用。<h4 id="尽量使用C-的类型转换"><a href="#尽量使用C-的类型转换" class="headerlink" title="尽量使用C++的类型转换"></a>尽量使用C++的类型转换</h4>安全，编译器会帮你检查。<h4 id="不要对数组使用多态"><a href="#不要对数组使用多态" class="headerlink" title="不要对数组使用多态"></a>不要对数组使用多态</h4></li>
+<li>如果函数参数为父类型A，实际传入参数为子类型B，那么编译器不会报错或者警告</li>
+<li>但是因为数组每次向后，都跳过一个sizeof(A)，但数组元素实际类型为B，造成越界。<a id="more"></a>
+一个具体的例子：<a href="https://github.com/obviouskkk/codes_cplusplus/blob/master/More_effective_cpp/item_3_ArrayPolymorphism.cpp" target="_blank" rel="noopener">数组和多态</a></li>
+</ul>
+<h4 id="避免无用的缺省构造函数"><a href="#避免无用的缺省构造函数" class="headerlink" title="避免无用的缺省构造函数"></a>避免无用的缺省构造函数</h4><ul>
+<li>没有默认构造函数的话，<code>B arrb[10]</code>或者<code>B * pb = new B[10]</code> 不能调用构造函数。解决方法：<code>B b[] = {B(1), b(2)...}</code>或者利用指针数组来代替对象数组，即<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">typedef B* pb;</span><br><span class="line">pb arrayPb[10];      //不调用构造函数</span><br><span class="line">// 或者 pb * arraypb = new pb[10]; // 也不调用构造函数</span><br><span class="line">for (int i = 0; i &lt; 10; ++i)</span><br><span class="line">&#123;</span><br><span class="line">	arraypb[i] = new B(i); // 调用构造函数</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<p>可以看到：</p>
+<p>上面的第二种方法容易内存泄露。更好的方案是operator new[]</p>
 <ul>
-<li><code>std::move</code>仅仅是进行了类型转换</li>
-<li>用<code>std::remove_reference</code>去掉T身上的引用，请看<a href="https://blog.csdn.net/o_bvious/article/details/80315806#%E5%BC%95%E7%94%A8%E6%8A%98%E5%8F%A0" target="_blank" rel="noopener">引用折叠</a>。</li>
-<li>move的名字其实更接近于<code>rvalue_cast</code>,把值转换为左值。</li>
-<li>请不要误解为move接受的参数类型就是右值引用，实际上它是一个<a href="https://blog.csdn.net/o_bvious/article/details/80315806#%E9%80%9A%E7%94%A8%E5%BC%95%E7%94%A8" target="_blank" rel="noopener">通用引用</a>。</li>
+<li>没有默认构造函数的第二个问题：无法在很多基于模板的容器类中使用，要求<code>data = new T[size]</code>,当然<code>vector</code>不需要。</li>
 </ul>
-<p>避免了不必要的深拷贝。<br>当需要将某个对象的内容“转移”到其他位置时，您可以使用移动，而不进行复制（例如内容不重复，这就是为什么它可以用于某些不可复制的对象，如unique_ptr）。<br>也可以使用std :: move来获取临时对象的内容，而无需复制（并节省大量时间）。<br>它只是向编译器发出信号，程序员不再关心该对象发生了什么。</p>
-<h5 id="意义"><a href="#意义" class="headerlink" title="意义"></a>意义</h5><p>想一下上面的<code>string a(x);</code>想一下下面的场景：</p>
-<ul>
-<li>x是string类型，而构造x的目的如果仅仅是为了拷贝构造a</li>
-<li>构造玩a，x就失去了意义，可以被随意折腾</li>
-<li>现在有一个高效的移动构造函数：<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">string</span>(<span class="built_in">string</span>&amp;&amp; that)   <span class="comment">// rvalue reference</span></span><br><span class="line">&#123;</span><br><span class="line">    data = that.data;</span><br><span class="line">    that.data = <span class="literal">nullptr</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>那么显然x目前是一个左值（俺有名字），无法match到参数为(string &amp;&amp;x)，到了<code>std::move</code>大显神威的时候了。</p>
-<h5 id="功能"><a href="#功能" class="headerlink" title="功能"></a>功能</h5><p>类型转换：获得一个右值，右值意味着告诉编译器：你可以使用、移动、侵占我所有的资源，因为我只是个右值。</p>
-<h4 id="移动构造函数"><a href="#移动构造函数" class="headerlink" title="移动构造函数"></a>移动构造函数</h4><p>工作是将资源从一个对象移到另一个对象而不是复制它们。<br>复制构造函数会生成深层副本，因为源必须保持不变。另一方面，移动构造函数只能复制指针，然后将源中的指针设置为null。<br>移动对象意味着将其管理的某些资源的所有权转移给另一个对象。想想智能指针。</p>
-<ul>
-<li>下面是<code>std::string</code>的可能声明，注意move构造不带const（编译器要把参数掏空无法const）</li>
-<li>加了const，就会调用上面的copy构造。<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">string</span>(<span class="keyword">const</span> <span class="built_in">string</span>&amp; rhs);        <span class="comment">//copy ctor</span></span><br><span class="line"><span class="built_in">string</span>(<span class="built_in">string</span>&amp;&amp; rhs);            <span class="comment">//move ctor</span></span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h4 id="其他问题"><a href="#其他问题" class="headerlink" title="其他问题"></a>其他问题</h4><ul>
-<li>C++11中<code>return local_var</code>与<code>return std::move(local_var)</code>效果是否相同？</li>
-</ul>
-<p>编译器就把优化几乎做到了极致——局部变量返回到函数外部并赋值给外部变量这个过程基本上不存在任何多余的临时变量构造和析构，这比move机制更加高效。</p>
 
       
     </div>
@@ -515,8 +497,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/05/lvalue_rvalue/" rel="next" title="左值、右值和引用">
-                <i class="fa fa-chevron-left"></i> 左值、右值和引用
+              <a href="/tools/git/" rel="next" title="git 常用命令">
+                <i class="fa fa-chevron-left"></i> git 常用命令
               </a>
             
           </div>
@@ -524,6 +506,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/c++/lvalue_rvalue/" rel="prev" title="左值、右值和引用">
+                左值、右值和引用 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -617,8 +603,6 @@
                     
                       
                     
-                      
-                    
                     <span class="site-state-item-count">2</span>
                     <span class="site-state-item-name">categories</span>
                   </a>
@@ -631,8 +615,6 @@
                 <div class="site-state-item site-state-tags">
                   <a href="/tags/index.html">
                     
-                    
-                      
                     
                       
                     
@@ -674,7 +656,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#新特性的目的"><span class="nav-number">1.</span> <span class="nav-text">新特性的目的</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#std-move"><span class="nav-number">2.</span> <span class="nav-text">std::move</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#意义"><span class="nav-number">2.0.1.</span> <span class="nav-text">意义</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#功能"><span class="nav-number">2.0.2.</span> <span class="nav-text">功能</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#移动构造函数"><span class="nav-number">2.1.</span> <span class="nav-text">移动构造函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#其他问题"><span class="nav-number">2.2.</span> <span class="nav-text">其他问题</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#基础"><span class="nav-number">1.</span> <span class="nav-text">基础</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#指针和引用"><span class="nav-number">1.1.</span> <span class="nav-text">指针和引用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#尽量使用C-的类型转换"><span class="nav-number">1.2.</span> <span class="nav-text">尽量使用C++的类型转换</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#不要对数组使用多态"><span class="nav-number">1.3.</span> <span class="nav-text">不要对数组使用多态</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#避免无用的缺省构造函数"><span class="nav-number">1.4.</span> <span class="nav-text">避免无用的缺省构造函数</span></a></li></ol></li></ol></div>
             
 
           </div>
