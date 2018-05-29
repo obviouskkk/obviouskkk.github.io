@@ -108,24 +108,25 @@
 
 
 
-  <meta name="description" content="欢迎来到 zzy&apos;blog ,留下评论的同时记得留下你的邮箱哟">
-<meta property="og:type" content="website">
-<meta property="og:title" content="tags">
-<meta property="og:url" content="http://107zy.cn/tags/index.html">
+  <meta name="description" content="背景最近两周，应老大的要求完成这样一项工作：在一个巨大的C++项目里，有一个记录打点的功能的，需要接受http请求然后完成某项工作。事实上，接受请求后，根据类型字段判断走何种逻辑，打点功能和其他功能逻辑完全无关。我的任务就是把这部分逻辑从当前进程剥离出来，作为一个单独的服务。这里记录一下遇到的坑和一些不好的编码习惯。 如何快速模块拆分重组我想我这次的工作并不能称之为重构，目的很明确：不修改逻辑，把">
+<meta name="keywords" content="编程经验">
+<meta property="og:type" content="article">
+<meta property="og:title" content="从重构看编程习惯">
+<meta property="og:url" content="http://107zy.cn/c++/rebuild/index.html">
 <meta property="og:site_name" content="zzy&#39;s blog">
-<meta property="og:description" content="欢迎来到 zzy&apos;blog ,留下评论的同时记得留下你的邮箱哟">
+<meta property="og:description" content="背景最近两周，应老大的要求完成这样一项工作：在一个巨大的C++项目里，有一个记录打点的功能的，需要接受http请求然后完成某项工作。事实上，接受请求后，根据类型字段判断走何种逻辑，打点功能和其他功能逻辑完全无关。我的任务就是把这部分逻辑从当前进程剥离出来，作为一个单独的服务。这里记录一下遇到的坑和一些不好的编码习惯。 如何快速模块拆分重组我想我这次的工作并不能称之为重构，目的很明确：不修改逻辑，把">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-05-27T06:58:29.425Z">
+<meta property="og:updated_time" content="2018-05-29T14:31:50.443Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="tags">
-<meta name="twitter:description" content="欢迎来到 zzy&apos;blog ,留下评论的同时记得留下你的邮箱哟">
+<meta name="twitter:title" content="从重构看编程习惯">
+<meta name="twitter:description" content="背景最近两周，应老大的要求完成这样一项工作：在一个巨大的C++项目里，有一个记录打点的功能的，需要接受http请求然后完成某项工作。事实上，接受请求后，根据类型字段判断走何种逻辑，打点功能和其他功能逻辑完全无关。我的任务就是把这部分逻辑从当前进程剥离出来，作为一个单独的服务。这里记录一下遇到的坑和一些不好的编码习惯。 如何快速模块拆分重组我想我这次的工作并不能称之为重构，目的很明确：不修改逻辑，把">
 
 
 
 
 
 
-  <link rel="canonical" href="http://107zy.cn/tags/"/>
+  <link rel="canonical" href="http://107zy.cn/c++/rebuild/"/>
 
 
 
@@ -135,7 +136,7 @@
   };
 </script>
 
-  <title>tags | zzy's blog</title>
+  <title>从重构看编程习惯 | zzy's blog</title>
   
 
 
@@ -227,7 +228,7 @@
         
         
           
-          <li class="menu-item menu-item-tags menu-item-active">
+          <li class="menu-item menu-item-tags">
     <a href="/tags/" rel="section">
       <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />Tags</a>
   </li>
@@ -263,25 +264,6 @@
 
   
     
-
-    
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-    
-
-  
-
 
   
 
@@ -332,64 +314,197 @@
 
   <div id="posts" class="posts-expand">
     
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://107zy.cn/c++/rebuild/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zzy">
+      <meta itemprop="description" content="欢迎来到 zzy'blog ,留下评论的同时记得留下你的邮箱哟">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zzy's blog">
+    </span>
+
     
-    
-    <div class="post-block page">
       <header class="post-header">
 
-<h1 class="post-title" itemprop="name headline">tags</h1>
-
-<div class="post-meta">
-  
-  
-
-
-
-</div>
-
-</header>
-
-      
-      
-      
-      <div class="post-body">
         
         
-          <div class="tag-cloud">
-            <div class="tag-cloud-title">
-                
-                
-                  
-                    
-                  
-                
-                  
-                    
-                  
-                
-                  
-                    
-                  
-                
-                3 tags in total
-            </div>
-            <div class="tag-cloud-tags">
-              <a href="/tags/c-11/" style="font-size: 30px; color: #111">c++11</a> <a href="/tags/git/" style="font-size: 12px; color: #ccc">git</a> <a href="/tags/编程经验/" style="font-size: 12px; color: #ccc">编程经验</a>
-            </div>
-          </div>
+          <h1 class="post-title" itemprop="name headline">从重构看编程习惯
+              
+            
+          </h1>
         
-      </div>
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-05-29 22:31:50" itemprop="dateCreated datePublished" datetime="2018-05-29T22:31:50+08:00">2018-05-29</time>
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/cplusplus/" itemprop="url" rel="index"><span itemprop="name">c++</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/c++/rebuild/#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">Comments: </span> <span class="post-comments-count valine-comment-count" data-xid="/c++/rebuild/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
       
+
+      
+        <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>最近两周，应老大的要求完成这样一项工作：在一个巨大的C++项目里，有一个记录打点的功能的，需要接受http请求然后完成某项工作。事实上，接受请求后，根据类型字段判断走何种逻辑，打点功能和其他功能逻辑完全无关。我的任务就是把这部分逻辑从当前进程剥离出来，作为一个单独的服务。这里记录一下遇到的坑和一些不好的编码习惯。</p>
+<h2 id="如何快速模块拆分重组"><a href="#如何快速模块拆分重组" class="headerlink" title="如何快速模块拆分重组"></a>如何快速模块拆分重组</h2><p>我想我这次的工作并不能称之为重构，目的很明确：不修改逻辑，把模块独立出来。<br><a id="more"></a></p>
+<h3 id="一些编译错误"><a href="#一些编译错误" class="headerlink" title="一些编译错误"></a>一些编译错误</h3><p>不得不说，大部分时间都在编译和修改编译错误。错误不多一般就几种：<br><code>has not been declared</code>：未定义，使用了没有包含头文件的函数，static变量没有在类外定义。<br><code>undefined reference to</code>：找不到实现，大部分是给出了头文件而找不到实现。<br><code>redefinition of...</code>：重定义了，编译器会提示那几处定义了，头文件里如果有定义，那么很容易出现这个问题，我这次没怎么遇到。<br><code>no such file</code>：头文件找不到，我遇到了很多，因为有些头文件依赖很多东西，而我并不想包含它。<br>事实证明，所有的编译问题都是容易解决的，除非它引入了太多你不想要的东西。</p>
+<h3 id="循序渐进"><a href="#循序渐进" class="headerlink" title="循序渐进"></a>循序渐进</h3><p>我的做法是：完全新建一个目录，写下main函数，然后照着之前的逻辑开始拷贝代码，如果它需要其他头文件，那么将头文件和实现拷过来，进行编译。假如有某个函数的实现和其他模块有太多的牵连，比如头文件里或者源文件里又包含了非常多的其他的头文件，会瞬间导致文件个数暴增，编译变得困难，那么我会选择注释掉这个函数，加上标记方便我回头找到它，用一个其他的值代替它，比如<code>if(afun()) --&gt; if (true)</code>。当然你也可以在它的头文件和源文件中注释掉某些内容使其通过编译。<br>许多代码会像树一样，主流程就是主干，期间会调用许多函数，就像枝干一样，函数调用越深，枝干也就越细越长。我们要做的就是保证主流程每新加一点东西都能通过编译，当枝丫不容易通过编译时就先砍掉一部分。</p>
+<h3 id="使用工具保存的进度"><a href="#使用工具保存的进度" class="headerlink" title="使用工具保存的进度"></a>使用工具保存的进度</h3><p>git是个很适合的工具，你可以发现你改动了那些部分，当新加的内容能通过编译后，别犹豫<code>commit</code>，并写上详细的信息。</p>
+<h3 id="拆分文件"><a href="#拆分文件" class="headerlink" title="拆分文件"></a>拆分文件</h3><p>工作越往后进行我越发现我加入编译的文件越来越多，小而美才是我想要的。我在这里发现了很多奇怪的文件，名字都包含<code>...common...</code>，里面有非常之多的函数，写了一个函数没地方放就放到<code>common</code>w文件里？<br>我的做法是，头文件里的函数全部保留，但是头文件基本全部注释掉或者改用前置声明。源文件里的函数基本全注释掉，然后编译。编译器会告诉我那些文件我没有定义，这时候把它取消掉注释就好了。</p>
+<h3 id="工具"><a href="#工具" class="headerlink" title="工具"></a>工具</h3><p>公司用的scons，用不太习惯，我选择了Cmake，很幸运。这个项目所有依赖的库基本都在项目目录下，跟机器关系不大，cmake不需要写find_lib。源文件不要指定整个目录，一个一个的源文件加进去，修改起来非常方便。</p>
+<h2 id="编程习惯"><a href="#编程习惯" class="headerlink" title="编程习惯"></a>编程习惯</h2><p>折腾了差不多两个周，看了好多代码，不多不说写代码的都是大牛，同时呢，一些问题可能大家常说但是没体会到它的危害，我这次算是深刻体会到了。</p>
+<h3 id="命名空间"><a href="#命名空间" class="headerlink" title="命名空间"></a>命名空间</h3><p>命名空间应该是C++对于C最大的几个亮点之一了。公司前辈们当然也很懂，很多代码都写在了命名空间内。但是一句<code>using namespace ...</code>,全毁了。嗯，改成了<code>A::B::xxx</code>，瞬间心旷神怡。</p>
+<h3 id="太长的头文件"><a href="#太长的头文件" class="headerlink" title="太长的头文件"></a>太长的头文件</h3><p><code>common</code>头文件和源文件都是典型的长文件。洋洋洒洒近万行的代码，100多行的<code>include</code>简直是一种灾难。相比这个，我想我更喜欢短小、命名准确的文件，哪怕文件数目很多。</p>
+<h3 id="成员函数和非成员函数"><a href="#成员函数和非成员函数" class="headerlink" title="成员函数和非成员函数"></a>成员函数和非成员函数</h3><p>因为项目是处理http请求的，所以有很多从文本解析数据的函数，然后我差不多在每个文件里都看见了处理函数，名字都相差不远。显然，一个类需要从文本中获取数据，所以这个方法就写在了类自身，这样的方法太多就造成可读性极差。更好的方法显然是：将从文本获取数据的方法集中起来，甚至它们不用组合成一个类，只需要把它们放在一个命名空间里就好。</p>
+<h3 id="长函数和调用过深"><a href="#长函数和调用过深" class="headerlink" title="长函数和调用过深"></a>长函数和调用过深</h3><p>这样的代码读起来真的很困难啊。</p>
+
       
     </div>
+
     
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/编程经验/" rel="tag"># 编程经验</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/c++/move/" rel="next" title="std::move">
+                <i class="fa fa-chevron-left"></i> std::move
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
 
 
 
-    
-    
-    
+    <div class="post-spread">
+      
+    </div>
   </div>
 
 
@@ -422,8 +537,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -500,6 +624,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#背景"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何快速模块拆分重组"><span class="nav-number">2.</span> <span class="nav-text">如何快速模块拆分重组</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#一些编译错误"><span class="nav-number">2.1.</span> <span class="nav-text">一些编译错误</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#循序渐进"><span class="nav-number">2.2.</span> <span class="nav-text">循序渐进</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用工具保存的进度"><span class="nav-number">2.3.</span> <span class="nav-text">使用工具保存的进度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#拆分文件"><span class="nav-number">2.4.</span> <span class="nav-text">拆分文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#工具"><span class="nav-number">2.5.</span> <span class="nav-text">工具</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#编程习惯"><span class="nav-number">3.</span> <span class="nav-text">编程习惯</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#命名空间"><span class="nav-number">3.1.</span> <span class="nav-text">命名空间</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#太长的头文件"><span class="nav-number">3.2.</span> <span class="nav-text">太长的头文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#成员函数和非成员函数"><span class="nav-number">3.3.</span> <span class="nav-text">成员函数和非成员函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#长函数和调用过深"><span class="nav-number">3.4.</span> <span class="nav-text">长函数和调用过深</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       

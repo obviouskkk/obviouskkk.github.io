@@ -116,7 +116,7 @@
 <meta property="og:site_name" content="zzy&#39;s blog">
 <meta property="og:description" content="git常用操作生成公钥1ssh-keygen -t rsa 一般公钥存在~/.ssh/id_rsa.pub，并且需要你上传到github，gitlab等。">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-05-27T07:18:56.967Z">
+<meta property="og:updated_time" content="2018-05-29T14:29:17.089Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="git 常用命令">
 <meta name="twitter:description" content="git常用操作生成公钥1ssh-keygen -t rsa 一般公钥存在~/.ssh/id_rsa.pub，并且需要你上传到github，gitlab等。">
@@ -387,7 +387,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2018-05-27 15:18:56" itemprop="dateModified" datetime="2018-05-27T15:18:56+08:00">2018-05-27</time>
+                <time title="Modified: 2018-05-29 22:29:17" itemprop="dateModified" datetime="2018-05-29T22:29:17+08:00">2018-05-29</time>
               
             
           </span>
@@ -460,10 +460,18 @@
 <li>改完了代码，提交：<code>git commit -m &#39;$text&#39;</code>  </li>
 <li>提交分支：<code>git push origin [name]</code>,如果不加<code>name</code>，会提交所有分支。</li>
 <li>删除分支：<code>git branch -d [name]</code></li>
-<li>合并分支：<code>git merge [name]</code>，把分支合并到当前分支</li>
+<li>合并分支：<code>git merge [name]</code>，把分支合并到当前分支/提交merge request</li>
 <li>拉取分支的更新：<code>git checkout master;git pull origin</code>,拉取master的更新</li>
 <li>查看已经合并了的分支：<code>git branch --merged</code>,这个列表里面不带<code>*</code>的都可以删掉了，因为已经merged</li>
 <li>查看未合并的分支：<code>git branch --no-merged</code>,这个不能删除，只能用<code>git branch -D</code>强制删除</li>
+<li>显示本地和origin/master分支的diff文件名: <code>git diff origin/master HEAD --name-only</code></li>
+<li>显示本地和origin/master分支的diff: <code>git diff origin/master HEAD</code></li>
+</ul>
+<h3 id="tags"><a href="#tags" class="headerlink" title="tags"></a>tags</h3><ul>
+<li>查看所有tag：<code>git tag</code></li>
+<li>查看tag详情：<code>git show $tagname</code></li>
+<li>标签必须推送到远程：<code>git push origin --tags</code></li>
+<li>更新到某个tag：<code>git checkout $tagname</code></li>
 </ul>
 
       
@@ -583,7 +591,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">4</span>
+                    <span class="site-state-item-count">5</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -617,7 +625,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">2</span>
+                      
+                    
+                    <span class="site-state-item-count">3</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>
@@ -653,7 +663,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#git常用操作"><span class="nav-number">1.</span> <span class="nav-text">git常用操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#生成公钥"><span class="nav-number">1.1.</span> <span class="nav-text">生成公钥</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分支相关"><span class="nav-number">1.2.</span> <span class="nav-text">分支相关</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#git常用操作"><span class="nav-number">1.</span> <span class="nav-text">git常用操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#生成公钥"><span class="nav-number">1.1.</span> <span class="nav-text">生成公钥</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分支相关"><span class="nav-number">1.2.</span> <span class="nav-text">分支相关</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#tags"><span class="nav-number">1.3.</span> <span class="nav-text">tags</span></a></li></ol></li></ol></div>
             
 
           </div>

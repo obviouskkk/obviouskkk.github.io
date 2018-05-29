@@ -108,18 +108,18 @@
 
 
 
-  <meta name="description" content="左值、右值和引用[TOC] C++( 包括 C) 中所有的表达式和变量要么是左值，要么是右值。可以用以下方式理解左值和右值： 左值 左值的定义就是非临时对象，那些可以在多条语句中使用的对象。所有定义的变量都满足这个定义。 一个有用的，有启发意义的判断一个表达式是左值的方法是取它的地址。如果可以取地址，它基本上就是一个左值。如果不行，通常来说是一个右值。（Effective Modern C++）右">
+  <meta name="description" content="左值、右值和引用C++( 包括 C) 中所有的表达式和变量要么是左值，要么是右值。可以用以下方式理解左值和右值： 左值 左值的定义就是非临时对象，那些可以在多条语句中使用的对象。所有定义的变量都满足这个定义。 一个有用的，有启发意义的判断一个表达式是左值的方法是取它的地址。如果可以取地址，它基本上就是一个左值。如果不行，通常来说是一个右值。（Effective Modern C++）右值 一般没有">
 <meta name="keywords" content="c++11">
 <meta property="og:type" content="article">
 <meta property="og:title" content="左值、右值和引用">
 <meta property="og:url" content="http://107zy.cn/c++/lvalue_rvalue/index.html">
 <meta property="og:site_name" content="zzy&#39;s blog">
-<meta property="og:description" content="左值、右值和引用[TOC] C++( 包括 C) 中所有的表达式和变量要么是左值，要么是右值。可以用以下方式理解左值和右值： 左值 左值的定义就是非临时对象，那些可以在多条语句中使用的对象。所有定义的变量都满足这个定义。 一个有用的，有启发意义的判断一个表达式是左值的方法是取它的地址。如果可以取地址，它基本上就是一个左值。如果不行，通常来说是一个右值。（Effective Modern C++）右">
+<meta property="og:description" content="左值、右值和引用C++( 包括 C) 中所有的表达式和变量要么是左值，要么是右值。可以用以下方式理解左值和右值： 左值 左值的定义就是非临时对象，那些可以在多条语句中使用的对象。所有定义的变量都满足这个定义。 一个有用的，有启发意义的判断一个表达式是左值的方法是取它的地址。如果可以取地址，它基本上就是一个左值。如果不行，通常来说是一个右值。（Effective Modern C++）右值 一般没有">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-05-27T07:19:16.767Z">
+<meta property="og:updated_time" content="2018-05-27T08:54:15.060Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="左值、右值和引用">
-<meta name="twitter:description" content="左值、右值和引用[TOC] C++( 包括 C) 中所有的表达式和变量要么是左值，要么是右值。可以用以下方式理解左值和右值： 左值 左值的定义就是非临时对象，那些可以在多条语句中使用的对象。所有定义的变量都满足这个定义。 一个有用的，有启发意义的判断一个表达式是左值的方法是取它的地址。如果可以取地址，它基本上就是一个左值。如果不行，通常来说是一个右值。（Effective Modern C++）右">
+<meta name="twitter:description" content="左值、右值和引用C++( 包括 C) 中所有的表达式和变量要么是左值，要么是右值。可以用以下方式理解左值和右值： 左值 左值的定义就是非临时对象，那些可以在多条语句中使用的对象。所有定义的变量都满足这个定义。 一个有用的，有启发意义的判断一个表达式是左值的方法是取它的地址。如果可以取地址，它基本上就是一个左值。如果不行，通常来说是一个右值。（Effective Modern C++）右值 一般没有">
 
 
 
@@ -387,7 +387,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2018-05-27 15:19:16" itemprop="dateModified" datetime="2018-05-27T15:19:16+08:00">2018-05-27</time>
+                <time title="Modified: 2018-05-27 16:54:15" itemprop="dateModified" datetime="2018-05-27T16:54:15+08:00">2018-05-27</time>
               
             
           </span>
@@ -448,8 +448,7 @@
       
 
       
-        <h2 id="左值、右值和引用"><a href="#左值、右值和引用" class="headerlink" title="左值、右值和引用"></a>左值、右值和引用</h2><p>[TOC]</p>
-<p>C++( 包括 C) 中所有的表达式和变量要么是左值，要么是右值。可以用以下方式理解左值和右值：</p>
+        <h2 id="左值、右值和引用"><a href="#左值、右值和引用" class="headerlink" title="左值、右值和引用"></a>左值、右值和引用</h2><p>C++( 包括 C) 中所有的表达式和变量要么是左值，要么是右值。可以用以下方式理解左值和右值：</p>
 <h4 id="左值"><a href="#左值" class="headerlink" title="左值"></a>左值</h4><ul>
 <li>左值的定义就是非临时对象，那些可以在多条语句中使用的对象。所有定义的变量都满足这个定义。</li>
 <li>一个有用的，有启发意义的判断一个表达式是左值的方法是取它的地址。如果可以取地址，它基本上就是一个左值。如果不行，通常来说是一个右值。（Effective Modern C++）<h4 id="右值"><a href="#右值" class="headerlink" title="右值"></a>右值</h4></li>
@@ -609,7 +608,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">4</span>
+                    <span class="site-state-item-count">5</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -643,7 +642,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">2</span>
+                      
+                    
+                    <span class="site-state-item-count">3</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>
