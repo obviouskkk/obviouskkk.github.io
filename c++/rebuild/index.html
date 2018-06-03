@@ -108,18 +108,18 @@
 
 
 
-  <meta name="description" content="背景最近两周，应老大的要求完成这样一项工作：在一个巨大的C++项目里，有一个记录打点的功能的，需要接受http请求然后完成某项工作。事实上，接受请求后，根据类型字段判断走何种逻辑，打点功能和其他功能逻辑完全无关。我的任务就是把这部分逻辑从当前进程剥离出来，作为一个单独的服务。这里记录一下遇到的坑和一些不好的编码习惯。 如何快速模块拆分重组我想我这次的工作并不能称之为重构，目的很明确：不修改逻辑，把">
+  <meta name="description" content="背景最近两周，应老大的要求完成这样一项工作：有一个巨大的C++项目，接受http请求，然后根据类型字段判断走何种逻辑，打点功能和其他功能逻辑完全无关。我的任务就是把这部分逻辑从当前进程剥离出来，作为一个单独的服务。这里记录一下遇到的坑和一些不好的编码习惯。 如何快速模块拆分重组我想我这次的工作并不能称之为重构，目的很明确：不修改逻辑，把模块独立出来。">
 <meta name="keywords" content="编程经验">
 <meta property="og:type" content="article">
 <meta property="og:title" content="从重构看编程习惯">
 <meta property="og:url" content="http://107zy.cn/c++/rebuild/index.html">
 <meta property="og:site_name" content="zzy&#39;s blog">
-<meta property="og:description" content="背景最近两周，应老大的要求完成这样一项工作：在一个巨大的C++项目里，有一个记录打点的功能的，需要接受http请求然后完成某项工作。事实上，接受请求后，根据类型字段判断走何种逻辑，打点功能和其他功能逻辑完全无关。我的任务就是把这部分逻辑从当前进程剥离出来，作为一个单独的服务。这里记录一下遇到的坑和一些不好的编码习惯。 如何快速模块拆分重组我想我这次的工作并不能称之为重构，目的很明确：不修改逻辑，把">
+<meta property="og:description" content="背景最近两周，应老大的要求完成这样一项工作：有一个巨大的C++项目，接受http请求，然后根据类型字段判断走何种逻辑，打点功能和其他功能逻辑完全无关。我的任务就是把这部分逻辑从当前进程剥离出来，作为一个单独的服务。这里记录一下遇到的坑和一些不好的编码习惯。 如何快速模块拆分重组我想我这次的工作并不能称之为重构，目的很明确：不修改逻辑，把模块独立出来。">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-05-29T14:31:50.443Z">
+<meta property="og:updated_time" content="2018-06-03T11:13:33.984Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="从重构看编程习惯">
-<meta name="twitter:description" content="背景最近两周，应老大的要求完成这样一项工作：在一个巨大的C++项目里，有一个记录打点的功能的，需要接受http请求然后完成某项工作。事实上，接受请求后，根据类型字段判断走何种逻辑，打点功能和其他功能逻辑完全无关。我的任务就是把这部分逻辑从当前进程剥离出来，作为一个单独的服务。这里记录一下遇到的坑和一些不好的编码习惯。 如何快速模块拆分重组我想我这次的工作并不能称之为重构，目的很明确：不修改逻辑，把">
+<meta name="twitter:description" content="背景最近两周，应老大的要求完成这样一项工作：有一个巨大的C++项目，接受http请求，然后根据类型字段判断走何种逻辑，打点功能和其他功能逻辑完全无关。我的任务就是把这部分逻辑从当前进程剥离出来，作为一个单独的服务。这里记录一下遇到的坑和一些不好的编码习惯。 如何快速模块拆分重组我想我这次的工作并不能称之为重构，目的很明确：不修改逻辑，把模块独立出来。">
 
 
 
@@ -370,7 +370,7 @@
                 
               
 
-              <time title="Created: 2018-05-29 22:31:50" itemprop="dateCreated datePublished" datetime="2018-05-29T22:31:50+08:00">2018-05-29</time>
+              <time title="Created: 2018-06-03 19:13:33" itemprop="dateCreated datePublished" datetime="2018-06-03T19:13:33+08:00">2018-06-03</time>
             
 
             
@@ -432,7 +432,7 @@
       
 
       
-        <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>最近两周，应老大的要求完成这样一项工作：在一个巨大的C++项目里，有一个记录打点的功能的，需要接受http请求然后完成某项工作。事实上，接受请求后，根据类型字段判断走何种逻辑，打点功能和其他功能逻辑完全无关。我的任务就是把这部分逻辑从当前进程剥离出来，作为一个单独的服务。这里记录一下遇到的坑和一些不好的编码习惯。</p>
+        <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>最近两周，应老大的要求完成这样一项工作：有一个巨大的C++项目，接受http请求，然后根据类型字段判断走何种逻辑，打点功能和其他功能逻辑完全无关。我的任务就是把这部分逻辑从当前进程剥离出来，作为一个单独的服务。这里记录一下遇到的坑和一些不好的编码习惯。</p>
 <h2 id="如何快速模块拆分重组"><a href="#如何快速模块拆分重组" class="headerlink" title="如何快速模块拆分重组"></a>如何快速模块拆分重组</h2><p>我想我这次的工作并不能称之为重构，目的很明确：不修改逻辑，把模块独立出来。<br><a id="more"></a></p>
 <h3 id="一些编译错误"><a href="#一些编译错误" class="headerlink" title="一些编译错误"></a>一些编译错误</h3><p>不得不说，大部分时间都在编译和修改编译错误。错误不多一般就几种：<br><code>has not been declared</code>：未定义，使用了没有包含头文件的函数，static变量没有在类外定义。<br><code>undefined reference to</code>：找不到实现，大部分是给出了头文件而找不到实现。<br><code>redefinition of...</code>：重定义了，编译器会提示那几处定义了，头文件里如果有定义，那么很容易出现这个问题，我这次没怎么遇到。<br><code>no such file</code>：头文件找不到，我遇到了很多，因为有些头文件依赖很多东西，而我并不想包含它。<br>事实证明，所有的编译问题都是容易解决的，除非它引入了太多你不想要的东西。</p>
 <h3 id="循序渐进"><a href="#循序渐进" class="headerlink" title="循序渐进"></a>循序渐进</h3><p>我的做法是：完全新建一个目录，写下main函数，然后照着之前的逻辑开始拷贝代码，如果它需要其他头文件，那么将头文件和实现拷过来，进行编译。假如有某个函数的实现和其他模块有太多的牵连，比如头文件里或者源文件里又包含了非常多的其他的头文件，会瞬间导致文件个数暴增，编译变得困难，那么我会选择注释掉这个函数，加上标记方便我回头找到它，用一个其他的值代替它，比如<code>if(afun()) --&gt; if (true)</code>。当然你也可以在它的头文件和源文件中注释掉某些内容使其通过编译。<br>许多代码会像树一样，主流程就是主干，期间会调用许多函数，就像枝干一样，函数调用越深，枝干也就越细越长。我们要做的就是保证主流程每新加一点东西都能通过编译，当枝丫不容易通过编译时就先砍掉一部分。</p>
@@ -486,6 +486,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/c++/forward/" rel="prev" title="std::forward详解">
+                std::forward详解 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -562,7 +566,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">5</span>
+                    <span class="site-state-item-count">6</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
